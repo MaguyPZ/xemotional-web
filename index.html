@@ -240,6 +240,23 @@
             .hero-metrics{grid-template-columns:1fr}
             .trust-stats{grid-template-columns:1fr 1fr}
         }
+
+        /* HERO CANVAS */
+        #hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+        .hero{position:relative;overflow:hidden}
+        .hero-inner{position:relative;z-index:2}
+
+        /* FLOATING SHAPES */
+        .hero-shapes{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden}
+        .hero-shape{position:absolute;border-radius:50%;opacity:.08;filter:blur(1px)}
+        .hero-shape.s1{width:320px;height:320px;background:var(--primary);top:-60px;right:-80px;animation:float-shape 18s ease-in-out infinite}
+        .hero-shape.s2{width:200px;height:200px;background:var(--secondary);bottom:40px;left:-50px;animation:float-shape 22s ease-in-out infinite reverse}
+        .hero-shape.s3{width:150px;height:150px;background:var(--whatsapp);top:50%;left:60%;animation:float-shape 15s ease-in-out infinite 3s}
+        @keyframes float-shape{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(20px,-30px) scale(1.05)}50%{transform:translate(-15px,20px) scale(.95)}75%{transform:translate(10px,15px) scale(1.02)}}
+
+        /* SCANNING LINE */
+        .scan-line{position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);opacity:.15;z-index:1;animation:scan 6s linear infinite}
+        @keyframes scan{0%{top:0;opacity:.15}50%{opacity:.25}100%{top:100%;opacity:.15}}
     </style>
 </head>
 <body>
@@ -266,6 +283,13 @@
 
     <!-- HERO -->
     <section class="hero" id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-shapes">
+            <div class="hero-shape s1"></div>
+            <div class="hero-shape s2"></div>
+            <div class="hero-shape s3"></div>
+        </div>
+        <div class="scan-line"></div>
         <div class="hero-inner">
             <div class="hero-content">
                 <div class="hero-badge">
@@ -654,6 +678,149 @@
                 if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
             });
         });
+
+        // ═══════════════════════════════════════
+        // NEURAL NETWORK PARTICLE CANVAS
+        // ═══════════════════════════════════════
+        (function(){
+            const canvas=document.getElementById('hero-canvas');
+            if(!canvas)return;
+            const ctx=canvas.getContext('2d');
+            let W,H,particles=[],mouse={x:-999,y:-999},raf;
+            const CFG={
+                count:90,
+                maxDist:140,
+                speed:0.35,
+                size:{min:1.5,max:3.5},
+                colors:['0,120,212','0,164,239','37,211,102','255,185,0'],
+                mouseRadius:180,
+                mouseForce:0.04
+            };
+
+            function resize(){
+                const hero=document.getElementById('hero');
+                W=canvas.width=hero.offsetWidth;
+                H=canvas.height=hero.offsetHeight;
+            }
+
+            function Particle(){
+                this.x=Math.random()*W;
+                this.y=Math.random()*H;
+                this.vx=(Math.random()-.5)*CFG.speed;
+                this.vy=(Math.random()-.5)*CFG.speed;
+                this.r=CFG.size.min+Math.random()*(CFG.size.max-CFG.size.min);
+                this.color=CFG.colors[Math.floor(Math.random()*CFG.colors.length)];
+                this.pulse=Math.random()*Math.PI*2;
+                this.pulseSpeed=0.02+Math.random()*0.02;
+            }
+
+            Particle.prototype.update=function(){
+                // Mouse repulsion
+                const dx=this.x-mouse.x,dy=this.y-mouse.y;
+                const dist=Math.sqrt(dx*dx+dy*dy);
+                if(dist<CFG.mouseRadius&&dist>0){
+                    const force=CFG.mouseForce*(1-dist/CFG.mouseRadius);
+                    this.vx+=dx/dist*force;
+                    this.vy+=dy/dist*force;
+                }
+                // Damping
+                this.vx*=0.99;
+                this.vy*=0.99;
+                this.x+=this.vx;
+                this.y+=this.vy;
+                this.pulse+=this.pulseSpeed;
+                // Wrap
+                if(this.x<-20)this.x=W+20;
+                if(this.x>W+20)this.x=-20;
+                if(this.y<-20)this.y=H+20;
+                if(this.y>H+20)this.y=-20;
+            };
+
+            Particle.prototype.draw=function(){
+                const glow=0.4+Math.sin(this.pulse)*0.3;
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+                ctx.fillStyle='rgba('+this.color+','+glow+')';
+                ctx.fill();
+                // Outer glow
+                ctx.beginPath();
+                ctx.arc(this.x,this.y,this.r*2.5,0,Math.PI*2);
+                ctx.fillStyle='rgba('+this.color+','+(glow*0.1)+')';
+                ctx.fill();
+            };
+
+            function init(){
+                resize();
+                particles=[];
+                for(let i=0;i<CFG.count;i++) particles.push(new Particle());
+            }
+
+            function drawConnections(){
+                for(let i=0;i<particles.length;i++){
+                    for(let j=i+1;j<particles.length;j++){
+                        const dx=particles[i].x-particles[j].x;
+                        const dy=particles[i].y-particles[j].y;
+                        const dist=Math.sqrt(dx*dx+dy*dy);
+                        if(dist<CFG.maxDist){
+                            const alpha=0.12*(1-dist/CFG.maxDist);
+                            ctx.beginPath();
+                            ctx.moveTo(particles[i].x,particles[i].y);
+                            ctx.lineTo(particles[j].x,particles[j].y);
+                            ctx.strokeStyle='rgba(0,120,212,'+alpha+')';
+                            ctx.lineWidth=0.6;
+                            ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            // Mouse near connections glow
+            function drawMouseConnections(){
+                for(let i=0;i<particles.length;i++){
+                    const dx=particles[i].x-mouse.x;
+                    const dy=particles[i].y-mouse.y;
+                    const dist=Math.sqrt(dx*dx+dy*dy);
+                    if(dist<CFG.mouseRadius*1.2){
+                        const alpha=0.2*(1-dist/(CFG.mouseRadius*1.2));
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x,particles[i].y);
+                        ctx.lineTo(mouse.x,mouse.y);
+                        ctx.strokeStyle='rgba(0,164,239,'+alpha+')';
+                        ctx.lineWidth=0.8;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            function animate(){
+                ctx.clearRect(0,0,W,H);
+                drawConnections();
+                if(mouse.x>0) drawMouseConnections();
+                for(let p of particles){p.update();p.draw();}
+                raf=requestAnimationFrame(animate);
+            }
+
+            // Events
+            const hero=document.getElementById('hero');
+            hero.addEventListener('mousemove',function(e){
+                const rect=hero.getBoundingClientRect();
+                mouse.x=e.clientX-rect.left;
+                mouse.y=e.clientY-rect.top;
+            });
+            hero.addEventListener('mouseleave',function(){mouse.x=-999;mouse.y=-999;});
+            window.addEventListener('resize',function(){resize();});
+
+            // Start
+            init();
+            animate();
+
+            // Pause when not visible
+            const heroObs=new IntersectionObserver(entries=>{
+                if(entries[0].isIntersecting){if(!raf)animate();}
+                else{cancelAnimationFrame(raf);raf=null;}
+            },{threshold:0.1});
+            heroObs.observe(hero);
+        })();
     </script>
 </body>
 </html>

@@ -57,8 +57,11 @@
         .nav-links{display:flex;gap:28px;list-style:none}
         .nav-links a{font-size:.88rem;font-weight:500;color:var(--text-secondary);transition:color var(--transition)}
         .nav-links a:hover{color:var(--primary)}
-        .nav-cta-wa{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--whatsapp);border-radius:6px;font-size:.88rem;font-weight:600;color:#fff;border:none;cursor:pointer;transition:all var(--transition)}
-        .nav-cta-wa:hover{background:var(--whatsapp-dark);transform:translateY(-1px);box-shadow:0 4px 14px rgba(37,211,102,.3)}
+        /* FLOATING WA BUTTON */
+        .floating-wa{position:fixed;bottom:28px;right:28px;z-index:9999;display:inline-flex;align-items:center;gap:10px;padding:16px 28px;background:var(--whatsapp);border-radius:50px;font-size:.95rem;font-weight:700;color:#fff;border:none;cursor:pointer;transition:all .3s ease;box-shadow:0 6px 28px rgba(37,211,102,.45);text-decoration:none;font-family:inherit;animation:floatPulse 3s ease-in-out infinite}
+        .floating-wa:hover{background:var(--whatsapp-dark);transform:translateY(-4px) scale(1.05);box-shadow:0 10px 40px rgba(37,211,102,.55)}
+        .floating-wa .wa-icon{font-size:1.3rem}
+        @keyframes floatPulse{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.45)}50%{box-shadow:0 6px 40px rgba(37,211,102,.7)}}
         .nav-mobile-btn{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer;padding:8px}
 
         /* HERO */
@@ -268,9 +271,7 @@
                 <li><a href="#tecnologia">Tecnología</a></li>
                 <li><a href="#faq">FAQ</a></li>
             </ul>
-            <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="nav-cta-wa" id="nav-wa-btn">
-                💬 Analizar Audio
-            </a>
+            <!-- WhatsApp button moved to floating position -->
             <button class="nav-mobile-btn" id="mobile-menu-btn" aria-label="Menú">☰</button>
         </div>
     </nav>
@@ -928,5 +929,10 @@
             heroObs.observe(document.getElementById('hero'));
         })();
     </script>
+
+    <!-- FLOATING WHATSAPP BUTTON -->
+    <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="floating-wa" id="floating-wa-btn">
+        <span class="wa-icon">💬</span> Analizar Audio
+    </a>
 </body>
 </html>

@@ -89,8 +89,8 @@
         .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--whatsapp))}
         .hero-card-label{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:18px}
         .waveform{display:flex;align-items:center;justify-content:center;gap:2.5px;height:80px;background:var(--bg-subtle);border-radius:8px;padding:0 14px;margin-bottom:20px}
-        .wave-bar{width:3px;border-radius:3px;background:linear-gradient(to top,var(--primary),var(--secondary));animation:wave 1.5s ease-in-out infinite}
-        @keyframes wave{0%,100%{height:14%;opacity:.3}50%{height:82%;opacity:1}}
+        .wave-bar{width:3px;border-radius:3px;background:linear-gradient(to top,var(--primary),var(--secondary));animation:wave 1.2s ease-in-out infinite}
+        @keyframes wave{0%,100%{height:10%;opacity:.2}50%{height:95%;opacity:1;box-shadow:0 0 8px var(--primary)}}
         .hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
         .hero-metric{background:var(--bg-subtle);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;transition:all var(--transition)}
         .hero-metric:hover{border-color:rgba(0,120,212,.2);background:var(--bg-white)}
@@ -248,15 +248,15 @@
 
         /* FLOATING SHAPES */
         .hero-shapes{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden}
-        .hero-shape{position:absolute;border-radius:50%;opacity:.08;filter:blur(1px)}
-        .hero-shape.s1{width:320px;height:320px;background:var(--primary);top:-60px;right:-80px;animation:float-shape 18s ease-in-out infinite}
-        .hero-shape.s2{width:200px;height:200px;background:var(--secondary);bottom:40px;left:-50px;animation:float-shape 22s ease-in-out infinite reverse}
-        .hero-shape.s3{width:150px;height:150px;background:var(--whatsapp);top:50%;left:60%;animation:float-shape 15s ease-in-out infinite 3s}
-        @keyframes float-shape{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(20px,-30px) scale(1.05)}50%{transform:translate(-15px,20px) scale(.95)}75%{transform:translate(10px,15px) scale(1.02)}}
+        .hero-shape{position:absolute;border-radius:50%;opacity:.15;filter:blur(2px)}
+        .hero-shape.s1{width:420px;height:420px;background:var(--primary);top:-80px;right:-100px;animation:float-shape 12s ease-in-out infinite}
+        .hero-shape.s2{width:300px;height:300px;background:var(--secondary);bottom:20px;left:-80px;animation:float-shape 16s ease-in-out infinite reverse}
+        .hero-shape.s3{width:250px;height:250px;background:var(--whatsapp);top:40%;left:50%;animation:float-shape 10s ease-in-out infinite 2s}
+        @keyframes float-shape{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-40px) scale(1.1)}50%{transform:translate(-20px,30px) scale(.9)}75%{transform:translate(15px,25px) scale(1.05)}}
 
         /* SCANNING LINE */
-        .scan-line{position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);opacity:.15;z-index:1;animation:scan 6s linear infinite}
-        @keyframes scan{0%{top:0;opacity:.15}50%{opacity:.25}100%{top:100%;opacity:.15}}
+        .scan-line{position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);opacity:.3;z-index:1;animation:scan 4s linear infinite;box-shadow:0 0 15px rgba(0,120,212,0.5)}
+        @keyframes scan{0%{top:0;opacity:.2}50%{opacity:.6}100%{top:100%;opacity:.2}}
     </style>
 </head>
 <body>
@@ -264,7 +264,7 @@
     <nav class="nav" id="nav">
         <div class="nav-inner">
             <a href="#" class="nav-logo">
-                <div class="nav-logo-icon">🧠</div>
+                <img src="LogoWhap.png" alt="Logo" class="nav-logo-icon" style="background:transparent; padding:0; object-fit: contain;">
                 <span>Xemotional</span>
             </a>
             <ul class="nav-links" id="nav-links">
@@ -361,7 +361,7 @@
         <div class="wa-grid">
             <div class="wa-phone anim">
                 <div class="wa-phone-header">
-                    <div class="wa-phone-avatar">🧠</div>
+                    <img src="LogoWhap.png" alt="Avatar" class="wa-phone-avatar" style="background:transparent; object-fit: cover;">
                     <div>
                         <div class="wa-phone-name">Xemotional Forense</div>
                         <div class="wa-phone-status">en línea</div>
@@ -619,7 +619,7 @@
         <div class="footer-inner">
             <div class="footer-brand">
                 <div class="nav-logo" style="color:#fff">
-                    <div class="nav-logo-icon">🧠</div>
+                    <img src="LogoWhap.png" alt="Logo" class="nav-logo-icon" style="background:transparent; padding:0; object-fit: contain;">
                     <span>Xemotional</span>
                 </div>
                 <p>Análisis forense de voz con inteligencia artificial. Servicio profesional, seguro y 100% confidencial.</p>
@@ -712,13 +712,13 @@
             const ctx=canvas.getContext('2d');
             let W,H,particles=[],mouse={x:-999,y:-999},raf;
             const CFG={
-                count:90,
-                maxDist:140,
-                speed:0.35,
-                size:{min:1.5,max:3.5},
-                colors:['0,120,212','0,164,239','37,211,102','255,185,0'],
-                mouseRadius:180,
-                mouseForce:0.04
+                count:250,
+                maxDist:180,
+                speed:0.8,
+                size:{min:1.5,max:4.5},
+                colors:['0,120,212','0,164,239','37,211,102','255,185,0','255,255,255'],
+                mouseRadius:250,
+                mouseForce:0.08
             };
 
             function resize(){
@@ -786,12 +786,12 @@
                         const dy=particles[i].y-particles[j].y;
                         const dist=Math.sqrt(dx*dx+dy*dy);
                         if(dist<CFG.maxDist){
-                            const alpha=0.12*(1-dist/CFG.maxDist);
+                            const alpha=0.35*(1-dist/CFG.maxDist);
                             ctx.beginPath();
                             ctx.moveTo(particles[i].x,particles[i].y);
                             ctx.lineTo(particles[j].x,particles[j].y);
                             ctx.strokeStyle='rgba(0,120,212,'+alpha+')';
-                            ctx.lineWidth=0.6;
+                            ctx.lineWidth=1.5;
                             ctx.stroke();
                         }
                     }

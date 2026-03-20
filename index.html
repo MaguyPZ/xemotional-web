@@ -246,13 +246,7 @@
         .hero{position:relative;overflow:hidden}
         .hero-inner{position:relative;z-index:2}
 
-        /* FLOATING SHAPES */
-        .hero-shapes{position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;overflow:hidden}
-        .hero-shape{position:absolute;border-radius:50%;opacity:.15;filter:blur(2px)}
-        .hero-shape.s1{width:420px;height:420px;background:var(--primary);top:-80px;right:-100px;animation:float-shape 12s ease-in-out infinite}
-        .hero-shape.s2{width:300px;height:300px;background:var(--secondary);bottom:20px;left:-80px;animation:float-shape 16s ease-in-out infinite reverse}
-        .hero-shape.s3{width:250px;height:250px;background:var(--whatsapp);top:40%;left:50%;animation:float-shape 10s ease-in-out infinite 2s}
-        @keyframes float-shape{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(30px,-40px) scale(1.1)}50%{transform:translate(-20px,30px) scale(.9)}75%{transform:translate(15px,25px) scale(1.05)}}
+        /* FLOATING SHAPES REMOVED (Replaced by Aura Canvas) */
 
         /* SCANNING LINE */
         .scan-line{position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);opacity:.3;z-index:1;animation:scan 4s linear infinite;box-shadow:0 0 15px rgba(0,120,212,0.5)}
@@ -284,11 +278,7 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <canvas id="hero-canvas"></canvas>
-        <div class="hero-shapes">
-            <div class="hero-shape s1"></div>
-            <div class="hero-shape s2"></div>
-            <div class="hero-shape s3"></div>
-        </div>
+        <!-- Hero shapes omitted in favor of the full living canvas background -->
         <div class="scan-line"></div>
         <div class="hero-inner">
             <div class="hero-content">
@@ -704,146 +694,155 @@
         });
 
         // ═══════════════════════════════════════
-        // NEURAL NETWORK PARTICLE CANVAS
+        // LIVING AI FLUID AURA & SOUNDWAVE
         // ═══════════════════════════════════════
         (function(){
             const canvas=document.getElementById('hero-canvas');
             if(!canvas)return;
             const ctx=canvas.getContext('2d');
-            let W,H,particles=[],mouse={x:-999,y:-999},raf;
-            const CFG={
-                count:250,
-                maxDist:180,
-                speed:0.8,
-                size:{min:1.5,max:4.5},
-                colors:['0,120,212','0,164,239','37,211,102','255,185,0','255,255,255'],
-                mouseRadius:250,
-                mouseForce:0.08
-            };
-
+            let W,H,raf,time=0;
+            let audioData = new Array(120).fill(0);
+            
             function resize(){
                 const hero=document.getElementById('hero');
                 W=canvas.width=hero.offsetWidth;
                 H=canvas.height=hero.offsetHeight;
             }
 
-            function Particle(){
-                this.x=Math.random()*W;
-                this.y=Math.random()*H;
-                this.vx=(Math.random()-.5)*CFG.speed;
-                this.vy=(Math.random()-.5)*CFG.speed;
-                this.r=CFG.size.min+Math.random()*(CFG.size.max-CFG.size.min);
-                this.color=CFG.colors[Math.floor(Math.random()*CFG.colors.length)];
-                this.pulse=Math.random()*Math.PI*2;
-                this.pulseSpeed=0.02+Math.random()*0.02;
+            // Simulate Audio Data (Fake FFT data)
+            function updateAudioData() {
+                for(let i=0; i<audioData.length; i++) {
+                    let target = Math.random() < 0.1 ? Math.random() * 80 : audioData[i] * 0.85;
+                    if(Math.random() < 0.08) target = 100 + Math.random() * 120; // spikes
+                    audioData[i] += (target - audioData[i]) * 0.25;
+                }
             }
 
-            Particle.prototype.update=function(){
-                // Mouse repulsion
-                const dx=this.x-mouse.x,dy=this.y-mouse.y;
-                const dist=Math.sqrt(dx*dx+dy*dy);
-                if(dist<CFG.mouseRadius&&dist>0){
-                    const force=CFG.mouseForce*(1-dist/CFG.mouseRadius);
-                    this.vx+=dx/dist*force;
-                    this.vy+=dy/dist*force;
-                }
-                // Damping
-                this.vx*=0.99;
-                this.vy*=0.99;
-                this.x+=this.vx;
-                this.y+=this.vy;
-                this.pulse+=this.pulseSpeed;
-                // Wrap
-                if(this.x<-20)this.x=W+20;
-                if(this.x>W+20)this.x=-20;
-                if(this.y<-20)this.y=H+20;
-                if(this.y>H+20)this.y=-20;
-            };
+            // Draw morphing fluid aura
+            function drawAura(cx, cy, radius) {
+                const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.8);
+                gradient.addColorStop(0, 'rgba(0,164,239,0.85)');
+                gradient.addColorStop(0.3, 'rgba(0,120,212,0.5)');
+                gradient.addColorStop(0.7, 'rgba(37,211,102,0.15)');
+                gradient.addColorStop(1, 'rgba(0,0,0,0)');
 
-            Particle.prototype.draw=function(){
-                const glow=0.4+Math.sin(this.pulse)*0.3;
+                ctx.save();
+                ctx.translate(cx, cy);
                 ctx.beginPath();
-                ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
-                ctx.fillStyle='rgba('+this.color+','+glow+')';
+                
+                const points = 80;
+                for(let i=0; i<=points; i++) {
+                    const angle = (i / points) * Math.PI * 2;
+                    const noise = Math.sin(angle * 3 + time * 0.002) * 20 + 
+                                  Math.sin(angle * 5 - time * 0.003) * 12 +
+                                  Math.cos(angle * 2 + time * 0.001) * 25;
+                    
+                    const r = radius + noise + (audioData[i % audioData.length] * 0.3);
+                    const x = Math.cos(angle) * r;
+                    const y = Math.sin(angle) * r;
+                    
+                    if(i===0) ctx.moveTo(x,y);
+                    else ctx.lineTo(x,y);
+                }
+                ctx.closePath();
+                ctx.fillStyle = gradient;
                 ctx.fill();
-                // Outer glow
+                
+                // Core bright glow
                 ctx.beginPath();
-                ctx.arc(this.x,this.y,this.r*2.5,0,Math.PI*2);
-                ctx.fillStyle='rgba('+this.color+','+(glow*0.1)+')';
+                ctx.arc(0, 0, radius * 0.4 + Math.sin(time*0.005)*15, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(255,255,255,0.2)';
                 ctx.fill();
-            };
-
-            function init(){
-                resize();
-                particles=[];
-                for(let i=0;i<CFG.count;i++) particles.push(new Particle());
+                ctx.restore();
             }
 
-            function drawConnections(){
-                for(let i=0;i<particles.length;i++){
-                    for(let j=i+1;j<particles.length;j++){
-                        const dx=particles[i].x-particles[j].x;
-                        const dy=particles[i].y-particles[j].y;
-                        const dist=Math.sqrt(dx*dx+dy*dy);
-                        if(dist<CFG.maxDist){
-                            const alpha=0.35*(1-dist/CFG.maxDist);
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x,particles[i].y);
-                            ctx.lineTo(particles[j].x,particles[j].y);
-                            ctx.strokeStyle='rgba(0,120,212,'+alpha+')';
-                            ctx.lineWidth=1.5;
-                            ctx.stroke();
-                        }
-                    }
+            // Draw soundwave spectrum ring
+            function drawSpectrum(cx, cy, baseRadius) {
+                const bars = audioData.length;
+                ctx.save();
+                ctx.translate(cx, cy);
+                for(let i=0; i<bars; i++) {
+                    const angle = (i / bars) * Math.PI * 2;
+                    const val = audioData[i];
+                    const height = 12 + val * 0.5;
+                    const r1 = baseRadius + 45;
+                    const r2 = r1 + height;
+                    
+                    const x1 = Math.cos(angle) * r1;
+                    const y1 = Math.sin(angle) * r1;
+                    const x2 = Math.cos(angle) * r2;
+                    const y2 = Math.sin(angle) * r2;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    let hue = 210 - (val * 0.6); // Shifts from blue to green
+                    ctx.strokeStyle = `hsla(${hue}, 90%, 65%, ${0.4 + val*0.006})`;
+                    ctx.lineWidth = 3;
+                    ctx.lineCap = 'round';
+                    ctx.stroke();
                 }
+                ctx.restore();
             }
 
-            // Mouse near connections glow
-            function drawMouseConnections(){
-                for(let i=0;i<particles.length;i++){
-                    const dx=particles[i].x-mouse.x;
-                    const dy=particles[i].y-mouse.y;
-                    const dist=Math.sqrt(dx*dx+dy*dy);
-                    if(dist<CFG.mouseRadius*1.2){
-                        const alpha=0.2*(1-dist/(CFG.mouseRadius*1.2));
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x,particles[i].y);
-                        ctx.lineTo(mouse.x,mouse.y);
-                        ctx.strokeStyle='rgba(0,164,239,'+alpha+')';
-                        ctx.lineWidth=0.8;
-                        ctx.stroke();
+            // Data matrix/floating particles
+            const dataParticles = Array.from({length: 45}, () => ({
+                x: Math.random(), 
+                y: Math.random(), 
+                speed: 0.3 + Math.random() * 0.8,
+                char: Math.random() > 0.5 ? '0' : '1',
+                size: 12 + Math.random()*16,
+                opacity: 0.1 + Math.random()*0.15
+            }));
+            
+            function drawData() {
+                dataParticles.forEach(p => {
+                    ctx.fillStyle = `rgba(0,164,239,${p.opacity})`;
+                    ctx.font = `bold ${p.size}px monospace`;
+                    ctx.fillText(p.char, p.x * W, p.y * H);
+                    p.y -= p.speed * 0.01;
+                    if(p.y < -0.1) {
+                        p.y = 1.1;
+                        p.x = Math.random();
+                        p.char = Math.floor(Math.random()*16).toString(16).toUpperCase();
                     }
-                }
+                });
             }
 
             function animate(){
                 ctx.clearRect(0,0,W,H);
-                drawConnections();
-                if(mouse.x>0) drawMouseConnections();
-                for(let p of particles){p.update();p.draw();}
+                time += 16;
+                
+                updateAudioData();
+                drawData();
+                
+                // Position aura in the center-left visually
+                const cx = W * 0.35;
+                const cy = H * 0.5;
+                
+                // Draw a secondary small aura for depth
+                drawAura(W*0.8, H*0.85, 90);
+                
+                // Main aura and spectrum
+                drawAura(cx, cy, 190);
+                drawSpectrum(cx, cy, 190);
+                
                 raf=requestAnimationFrame(animate);
             }
 
-            // Events
-            const hero=document.getElementById('hero');
-            hero.addEventListener('mousemove',function(e){
-                const rect=hero.getBoundingClientRect();
-                mouse.x=e.clientX-rect.left;
-                mouse.y=e.clientY-rect.top;
-            });
-            hero.addEventListener('mouseleave',function(){mouse.x=-999;mouse.y=-999;});
-            window.addEventListener('resize',function(){resize();});
-
-            // Start
+            window.addEventListener('resize', resize);
+            function init(){ resize(); animate(); }
             init();
-            animate();
-
+            
             // Pause when not visible
             const heroObs=new IntersectionObserver(entries=>{
-                if(entries[0].isIntersecting){if(!raf)animate();}
-                else{cancelAnimationFrame(raf);raf=null;}
-            },{threshold:0.1});
-            heroObs.observe(hero);
+                if(entries[0].isIntersecting){
+                    if(!raf) animate();
+                } else {
+                    if(raf) { cancelAnimationFrame(raf); raf=null; }
+                }
+            },{threshold:0});
+            heroObs.observe(document.getElementById('hero'));
         })();
     </script>
 </body>

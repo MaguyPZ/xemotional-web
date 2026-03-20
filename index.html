@@ -694,147 +694,96 @@
         });
 
         // ═══════════════════════════════════════
-        // LIVING AI FLUID AURA & SOUNDWAVE
+        // MATRIX DE VOZ (VECTOR FLOW) CANVAS
         // ═══════════════════════════════════════
         (function(){
             const canvas=document.getElementById('hero-canvas');
             if(!canvas)return;
             const ctx=canvas.getContext('2d');
-            let W,H,raf,time=0;
-            let audioData = new Array(120).fill(0);
+            let W, H, raf, time = 0;
+            let flowParticles = [];
             
             function resize(){
                 const hero=document.getElementById('hero');
-                W=canvas.width=hero.offsetWidth;
-                H=canvas.height=hero.offsetHeight;
+                W = canvas.width = hero.offsetWidth;
+                H = canvas.height = hero.offsetHeight;
             }
 
-            // Simulate Audio Data (Fake FFT data)
-            function updateAudioData() {
-                for(let i=0; i<audioData.length; i++) {
-                    let target = Math.random() < 0.1 ? Math.random() * 80 : audioData[i] * 0.85;
-                    if(Math.random() < 0.08) target = 100 + Math.random() * 120; // spikes
-                    audioData[i] += (target - audioData[i]) * 0.25;
+            function initParticles() {
+                flowParticles = [];
+                const count = window.innerWidth > 768 ? 1200 : 700; 
+                for(let i=0; i<count; i++) {
+                    flowParticles.push({
+                        x: Math.random() * W,
+                        y: Math.random() * H,
+                        vx: 0, vy: 0,
+                        // Mezcla temática: 80% azules/cyans (primary), 20% verdes (whatsapp)
+                        hue: Math.random() > 0.8 ? 140 + Math.random()*15 : 195 + Math.random()*25
+                    });
                 }
             }
 
-            // Draw morphing fluid aura
-            function drawAura(cx, cy, radius) {
-                const gradient = ctx.createRadialGradient(cx, cy, 0, cx, cy, radius * 1.8);
-                gradient.addColorStop(0, 'rgba(0,164,239,0.85)');
-                gradient.addColorStop(0.3, 'rgba(0,120,212,0.5)');
-                gradient.addColorStop(0.7, 'rgba(37,211,102,0.15)');
-                gradient.addColorStop(1, 'rgba(0,0,0,0)');
-
-                ctx.save();
-                ctx.translate(cx, cy);
-                ctx.beginPath();
-                
-                const points = 80;
-                for(let i=0; i<=points; i++) {
-                    const angle = (i / points) * Math.PI * 2;
-                    const noise = Math.sin(angle * 3 + time * 0.002) * 20 + 
-                                  Math.sin(angle * 5 - time * 0.003) * 12 +
-                                  Math.cos(angle * 2 + time * 0.001) * 25;
-                    
-                    const r = radius + noise + (audioData[i % audioData.length] * 0.3);
-                    const x = Math.cos(angle) * r;
-                    const y = Math.sin(angle) * r;
-                    
-                    if(i===0) ctx.moveTo(x,y);
-                    else ctx.lineTo(x,y);
-                }
-                ctx.closePath();
-                ctx.fillStyle = gradient;
-                ctx.fill();
-                
-                // Core bright glow
-                ctx.beginPath();
-                ctx.arc(0, 0, radius * 0.4 + Math.sin(time*0.005)*15, 0, Math.PI*2);
+            function drawFlow() {
+                // Efecto de rastro para fondos claros (limpia gradualmente a transparente)
+                ctx.globalCompositeOperation = 'destination-out';
                 ctx.fillStyle = 'rgba(255,255,255,0.2)';
-                ctx.fill();
-                ctx.restore();
-            }
+                ctx.fillRect(0, 0, W, H);
+                ctx.globalCompositeOperation = 'source-over';
 
-            // Draw soundwave spectrum ring
-            function drawSpectrum(cx, cy, baseRadius) {
-                const bars = audioData.length;
-                ctx.save();
-                ctx.translate(cx, cy);
-                for(let i=0; i<bars; i++) {
-                    const angle = (i / bars) * Math.PI * 2;
-                    const val = audioData[i];
-                    const height = 12 + val * 0.5;
-                    const r1 = baseRadius + 45;
-                    const r2 = r1 + height;
+                for(let i=0; i<flowParticles.length; i++) {
+                    let p = flowParticles[i];
                     
-                    const x1 = Math.cos(angle) * r1;
-                    const y1 = Math.sin(angle) * r1;
-                    const x2 = Math.cos(angle) * r2;
-                    const y2 = Math.sin(angle) * r2;
+                    // Ecuación de campo vectorial
+                    let angle = Math.sin(p.x * 0.003 + time*0.005) * Math.cos(p.y * 0.003 + time*0.005) * Math.PI * 2;
                     
-                    ctx.beginPath();
-                    ctx.moveTo(x1, y1);
-                    ctx.lineTo(x2, y2);
-                    let hue = 210 - (val * 0.6); // Shifts from blue to green
-                    ctx.strokeStyle = `hsla(${hue}, 90%, 65%, ${0.4 + val*0.006})`;
-                    ctx.lineWidth = 3;
-                    ctx.lineCap = 'round';
-                    ctx.stroke();
-                }
-                ctx.restore();
-            }
-
-            // Data matrix/floating particles
-            const dataParticles = Array.from({length: 45}, () => ({
-                x: Math.random(), 
-                y: Math.random(), 
-                speed: 0.3 + Math.random() * 0.8,
-                char: Math.random() > 0.5 ? '0' : '1',
-                size: 12 + Math.random()*16,
-                opacity: 0.1 + Math.random()*0.15
-            }));
-            
-            function drawData() {
-                dataParticles.forEach(p => {
-                    ctx.fillStyle = `rgba(0,164,239,${p.opacity})`;
-                    ctx.font = `bold ${p.size}px monospace`;
-                    ctx.fillText(p.char, p.x * W, p.y * H);
-                    p.y -= p.speed * 0.01;
-                    if(p.y < -0.1) {
-                        p.y = 1.1;
-                        p.x = Math.random();
-                        p.char = Math.floor(Math.random()*16).toString(16).toUpperCase();
+                    // Fuerza atractiva hacia el centro-izquierda (donde está el texto/micrófono visualmente)
+                    let dx = (W * 0.35) - p.x;
+                    let dy = (H * 0.5) - p.y;
+                    let dist = Math.sqrt(dx*dx + dy*dy);
+                    if(dist < 500) {
+                        let force = (500 - dist) * 0.00025;
+                        angle += Math.atan2(dy, dx) * force;
                     }
-                });
+
+                    p.vx += Math.cos(angle) * 0.45;
+                    p.vy += Math.sin(angle) * 0.45;
+                    
+                    // Limitar velocidad
+                    let speed = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
+                    if(speed > 4.5) {
+                        p.vx = (p.vx/speed) * 4.5;
+                        p.vy = (p.vy/speed) * 4.5;
+                    }
+                    
+                    p.x += p.vx;
+                    p.y += p.vy;
+
+                    // Envolver bordes
+                    if(p.x < 0) p.x = W;
+                    if(p.x > W) p.x = 0;
+                    if(p.y < 0) p.y = H;
+                    if(p.y > H) p.y = 0;
+
+                    // Dibujar partícula
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, window.innerWidth > 768 ? 1.6 : 1.2, 0, Math.PI*2);
+                    let alpha = speed/4.5 + 0.15;
+                    ctx.fillStyle = `hsla(${p.hue}, 90%, 45%, ${alpha})`;
+                    ctx.fill();
+                }
             }
 
             function animate(){
-                ctx.clearRect(0,0,W,H);
-                time += 16;
-                
-                updateAudioData();
-                drawData();
-                
-                // Position aura in the center-left visually
-                const cx = W * 0.35;
-                const cy = H * 0.5;
-                
-                // Draw a secondary small aura for depth
-                drawAura(W*0.8, H*0.85, 90);
-                
-                // Main aura and spectrum
-                drawAura(cx, cy, 190);
-                drawSpectrum(cx, cy, 190);
-                
+                time++;
+                drawFlow();
                 raf=requestAnimationFrame(animate);
             }
 
-            window.addEventListener('resize', resize);
-            function init(){ resize(); animate(); }
+            window.addEventListener('resize', () => { resize(); initParticles(); });
+            function init(){ resize(); initParticles(); animate(); }
             init();
             
-            // Pause when not visible
+            // Pausar si no está en vista
             const heroObs=new IntersectionObserver(entries=>{
                 if(entries[0].isIntersecting){
                     if(!raf) animate();

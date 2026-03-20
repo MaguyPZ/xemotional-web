@@ -694,102 +694,236 @@
         });
 
         // ═══════════════════════════════════════
-        // MATRIX DE VOZ (VECTOR FLOW) CANVAS
+        // VOICE DNA HELIX — Forensic AI Canvas
         // ═══════════════════════════════════════
         (function(){
             const canvas=document.getElementById('hero-canvas');
             if(!canvas)return;
             const ctx=canvas.getContext('2d');
             let W, H, raf, time = 0;
-            let flowParticles = [];
-            
+
             function resize(){
                 const hero=document.getElementById('hero');
                 W = canvas.width = hero.offsetWidth;
                 H = canvas.height = hero.offsetHeight;
             }
 
-            function initParticles() {
-                flowParticles = [];
-                const count = window.innerWidth > 768 ? 1200 : 700; 
-                for(let i=0; i<count; i++) {
-                    flowParticles.push({
-                        x: Math.random() * W,
-                        y: Math.random() * H,
-                        vx: 0, vy: 0,
-                        // Mezcla temática: 80% azules/cyans (primary), 20% verdes (whatsapp)
-                        hue: Math.random() > 0.8 ? 140 + Math.random()*15 : 195 + Math.random()*25
+            // ── Simulated live audio data ──
+            const BANDS = 64;
+            let audioData = new Float32Array(BANDS);
+            function tickAudio(){
+                for(let i=0;i<BANDS;i++){
+                    let t = audioData[i];
+                    let spike = Math.random()<0.06 ? 0.7+Math.random()*0.3 : 0;
+                    t += (spike - t) * 0.18;
+                    t *= 0.92;
+                    audioData[i] = t;
+                }
+            }
+
+            // ── Floating forensic labels ──
+            const labels = [
+                'Credibilidad 87 %','Estrés: Bajo','Emoción: Neutral','Frecuencia: 220 Hz',
+                'Tono: Estable','42 métricas','Veredicto: HONESTO','Micro-temblor: 0.3 %',
+                'Pitch: Normal','Cadencia: Fluida','Confianza: Alta','Hesitación: Mínima',
+                'Jitter: 0.8 %','Shimmer: 1.2 dB','HNR: 22 dB','Segmentos: 14'
+            ];
+            let floatingLabels = [];
+            function spawnLabel(){
+                if(floatingLabels.length > 6) return;
+                const side = Math.random() > 0.5;
+                floatingLabels.push({
+                    text: labels[Math.floor(Math.random()*labels.length)],
+                    x: side ? W*0.05 + Math.random()*W*0.25 : W*0.7 + Math.random()*W*0.25,
+                    y: H*0.15 + Math.random()*H*0.7,
+                    life: 0, maxLife: 180 + Math.random()*120,
+                    vy: -0.15 - Math.random()*0.3,
+                    size: 11 + Math.random()*3
+                });
+            }
+            function drawLabels(){
+                floatingLabels.forEach(l => {
+                    l.life++;
+                    l.y += l.vy;
+                    let progress = l.life / l.maxLife;
+                    let alpha = progress < 0.15 ? progress/0.15 : progress > 0.8 ? (1-progress)/0.2 : 1;
+                    alpha *= 0.45;
+                    ctx.font = `600 ${l.size}px 'Inter', monospace`;
+                    ctx.fillStyle = `rgba(0,120,212,${alpha})`;
+                    ctx.fillText(l.text, l.x, l.y);
+                });
+                floatingLabels = floatingLabels.filter(l => l.life < l.maxLife);
+            }
+
+            // ── 3D Voice DNA Helix ──
+            const HELIX_NODES = 60;
+            const HELIX_RADIUS = 110;
+            const HELIX_LENGTH = 500;
+            const HELIX_SPEED = 0.012;
+
+            function drawHelix(cx, cy){
+                ctx.save();
+                // Draw two strands
+                for(let strand=0; strand<2; strand++){
+                    const offset = strand * Math.PI;
+                    let prev = null;
+                    for(let i=0; i<HELIX_NODES; i++){
+                        const t = i / HELIX_NODES;
+                        const angle = t * Math.PI * 4 + time * HELIX_SPEED + offset;
+                        const yPos = cy - HELIX_LENGTH/2 + t * HELIX_LENGTH;
+                        
+                        // 3D projection
+                        const z = Math.cos(angle);
+                        const xOff = Math.sin(angle) * HELIX_RADIUS;
+                        const depth = (z + 1) / 2; // 0..1
+                        const px = cx + xOff;
+                        const py = yPos;
+
+                        // Audio reactivity on this node
+                        const band = Math.floor(t * BANDS);
+                        const energy = audioData[band] || 0;
+
+                        // Node size & alpha based on depth
+                        const baseSize = 3 + depth * 4 + energy * 12;
+                        const alpha = 0.15 + depth * 0.6 + energy * 0.5;
+
+                        // Color: cycle between blue → cyan → green based on energy
+                        const hue = 200 - energy * 80;
+
+                        // Glow ring
+                        ctx.beginPath();
+                        ctx.arc(px, py, baseSize + 4, 0, Math.PI*2);
+                        ctx.fillStyle = `hsla(${hue}, 90%, 60%, ${alpha * 0.15})`;
+                        ctx.fill();
+
+                        // Core node
+                        ctx.beginPath();
+                        ctx.arc(px, py, baseSize, 0, Math.PI*2);
+                        ctx.fillStyle = `hsla(${hue}, 85%, 55%, ${alpha})`;
+                        ctx.fill();
+
+                        // Connection line between strands (rungs of the helix)
+                        if(strand === 0 && i % 4 === 0){
+                            const angle2 = t * Math.PI * 4 + time * HELIX_SPEED + Math.PI;
+                            const xOff2 = Math.sin(angle2) * HELIX_RADIUS;
+                            const z2 = Math.cos(angle2);
+                            const depth2 = (z2+1)/2;
+                            const avgDepth = (depth + depth2)/2;
+                            ctx.beginPath();
+                            ctx.moveTo(px, py);
+                            ctx.lineTo(cx + xOff2, py);
+                            ctx.strokeStyle = `rgba(0,164,239,${avgDepth * 0.18 + energy*0.3})`;
+                            ctx.lineWidth = 1 + energy * 3;
+                            ctx.stroke();
+                        }
+
+                        // Strand backbone line
+                        if(prev){
+                            ctx.beginPath();
+                            ctx.moveTo(prev.x, prev.y);
+                            ctx.lineTo(px, py);
+                            ctx.strokeStyle = `hsla(${hue}, 80%, 50%, ${alpha * 0.4})`;
+                            ctx.lineWidth = 1.5 + depth;
+                            ctx.stroke();
+                        }
+                        prev = {x: px, y: py};
+                    }
+                }
+                ctx.restore();
+            }
+
+            // ── Orbiting ring particles ──
+            const ORBIT_COUNT = 50;
+            let orbits = [];
+            function initOrbits(){
+                orbits = [];
+                for(let i=0;i<ORBIT_COUNT;i++){
+                    orbits.push({
+                        angle: Math.random()*Math.PI*2,
+                        radius: 160 + Math.random()*120,
+                        speed: 0.003 + Math.random()*0.008,
+                        size: 1.5 + Math.random()*2,
+                        elevation: (Math.random()-0.5)*HELIX_LENGTH*0.8,
+                        hue: Math.random() > 0.7 ? 140 : 200 + Math.random()*20
                     });
                 }
             }
+            initOrbits();
 
-            function drawFlow() {
-                // Efecto de rastro para fondos claros (limpia gradualmente a transparente)
-                ctx.globalCompositeOperation = 'destination-out';
-                ctx.fillStyle = 'rgba(255,255,255,0.2)';
-                ctx.fillRect(0, 0, W, H);
-                ctx.globalCompositeOperation = 'source-over';
-
-                for(let i=0; i<flowParticles.length; i++) {
-                    let p = flowParticles[i];
-                    
-                    // Ecuación de campo vectorial
-                    let angle = Math.sin(p.x * 0.003 + time*0.005) * Math.cos(p.y * 0.003 + time*0.005) * Math.PI * 2;
-                    
-                    // Fuerza atractiva hacia el centro-izquierda (donde está el texto/micrófono visualmente)
-                    let dx = (W * 0.35) - p.x;
-                    let dy = (H * 0.5) - p.y;
-                    let dist = Math.sqrt(dx*dx + dy*dy);
-                    if(dist < 500) {
-                        let force = (500 - dist) * 0.00025;
-                        angle += Math.atan2(dy, dx) * force;
-                    }
-
-                    p.vx += Math.cos(angle) * 0.45;
-                    p.vy += Math.sin(angle) * 0.45;
-                    
-                    // Limitar velocidad
-                    let speed = Math.sqrt(p.vx*p.vx + p.vy*p.vy);
-                    if(speed > 4.5) {
-                        p.vx = (p.vx/speed) * 4.5;
-                        p.vy = (p.vy/speed) * 4.5;
-                    }
-                    
-                    p.x += p.vx;
-                    p.y += p.vy;
-
-                    // Envolver bordes
-                    if(p.x < 0) p.x = W;
-                    if(p.x > W) p.x = 0;
-                    if(p.y < 0) p.y = H;
-                    if(p.y > H) p.y = 0;
-
-                    // Dibujar partícula
+            function drawOrbits(cx, cy){
+                orbits.forEach(o => {
+                    o.angle += o.speed;
+                    const x = cx + Math.cos(o.angle) * o.radius;
+                    const z = Math.sin(o.angle);
+                    const y = cy + o.elevation + z * 20;
+                    const alpha = 0.2 + (z+1)/2 * 0.5;
                     ctx.beginPath();
-                    ctx.arc(p.x, p.y, window.innerWidth > 768 ? 1.6 : 1.2, 0, Math.PI*2);
-                    let alpha = speed/4.5 + 0.15;
-                    ctx.fillStyle = `hsla(${p.hue}, 90%, 45%, ${alpha})`;
+                    ctx.arc(x, y, o.size, 0, Math.PI*2);
+                    ctx.fillStyle = `hsla(${o.hue}, 90%, 60%, ${alpha})`;
                     ctx.fill();
+                });
+            }
+
+            // ── Central soundwave bar visualization ──
+            function drawSoundBars(cx, cy){
+                const barCount = 30;
+                const barWidth = 3;
+                const maxH = 60;
+                const totalW = barCount * (barWidth + 2);
+                const startX = cx - totalW/2;
+                const baseY = cy;
+                for(let i=0;i<barCount;i++){
+                    const band = Math.floor((i/barCount)*BANDS);
+                    const energy = audioData[band] || 0;
+                    const h = 6 + energy * maxH;
+                    const x = startX + i*(barWidth+2);
+                    const hue = 200 - energy * 60;
+                    // Bar up
+                    ctx.fillStyle = `hsla(${hue}, 90%, 55%, ${0.35 + energy*0.6})`;
+                    ctx.fillRect(x, baseY - h, barWidth, h);
+                    // Bar down (mirror)
+                    ctx.fillStyle = `hsla(${hue}, 90%, 55%, ${0.15 + energy*0.3})`;
+                    ctx.fillRect(x, baseY, barWidth, h * 0.5);
                 }
             }
 
+            // ── Main loop ──
             function animate(){
+                ctx.clearRect(0,0,W,H);
                 time++;
-                drawFlow();
-                raf=requestAnimationFrame(animate);
+                tickAudio();
+
+                // Spawn labels occasionally
+                if(Math.random() < 0.025) spawnLabel();
+
+                // Center of the helix slightly to the left
+                const cx = W * 0.32;
+                const cy = H * 0.5;
+
+                // Background: faint radial glow
+                const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 400);
+                bg.addColorStop(0, 'rgba(0,120,212,0.04)');
+                bg.addColorStop(0.5, 'rgba(0,164,239,0.02)');
+                bg.addColorStop(1, 'rgba(0,0,0,0)');
+                ctx.fillStyle = bg;
+                ctx.fillRect(0,0,W,H);
+
+                drawLabels();
+                drawOrbits(cx, cy);
+                drawHelix(cx, cy);
+                drawSoundBars(cx, cy);
+
+                raf = requestAnimationFrame(animate);
             }
 
-            window.addEventListener('resize', () => { resize(); initParticles(); });
-            function init(){ resize(); initParticles(); animate(); }
-            init();
-            
-            // Pausar si no está en vista
-            const heroObs=new IntersectionObserver(entries=>{
-                if(entries[0].isIntersecting){
-                    if(!raf) animate();
-                } else {
-                    if(raf) { cancelAnimationFrame(raf); raf=null; }
-                }
+            window.addEventListener('resize', resize);
+            resize();
+            animate();
+
+            // Pause when not visible
+            const heroObs = new IntersectionObserver(entries => {
+                if(entries[0].isIntersecting){ if(!raf) animate(); }
+                else { if(raf){ cancelAnimationFrame(raf); raf=null; } }
             },{threshold:0});
             heroObs.observe(document.getElementById('hero'));
         })();

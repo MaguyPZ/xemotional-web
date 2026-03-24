@@ -260,6 +260,25 @@
         .scan-line{position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);opacity:.3;z-index:1;animation:scan 4s linear infinite;box-shadow:0 0 15px rgba(0,120,212,0.5)}
         @keyframes scan{0%{top:0;opacity:.2}50%{opacity:.6}100%{top:100%;opacity:.2}}
     </style>
+
+    <!-- Meta Pixel Code — Xemotional (Pixel ID: 1664455858206047) -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1664455858206047');
+    fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img height="1" width="1" style="display:none"
+           src="https://www.facebook.com/tr?id=1664455858206047&ev=PageView&noscript=1"/>
+    </noscript>
+    <!-- End Meta Pixel Code -->
 </head>
 <body>
     <!-- NAV -->
@@ -698,6 +717,41 @@
                 if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
             });
         });
+
+        
+        // META PIXEL — Tracking eventos clave de conversión
+        // Dispara Lead cuando el usuario hace click en cualquier botón de WhatsApp
+        (function(){
+            var waButtons = ['hero-wa-btn', 'wa-section-btn', 'cta-wa-btn'];
+            waButtons.forEach(function(id){
+                var btn = document.getElementById(id);
+                if(btn){
+                    btn.addEventListener('click', function(){
+                        if(typeof fbq === 'function'){
+                            fbq('track', 'Lead', {
+                                content_name: 'Consulta WhatsApp',
+                                content_category: 'Análisis Forense de Voz',
+                                value: 0,
+                                currency: 'USD'
+                            });
+                        }
+                    });
+                }
+            });
+            var floatingWa = document.querySelector('.floating-wa');
+            if(floatingWa){
+                floatingWa.addEventListener('click', function(){
+                    if(typeof fbq === 'function'){
+                        fbq('track', 'Lead', {
+                            content_name: 'Consulta WhatsApp (Floating)',
+                            content_category: 'Análisis Forense de Voz',
+                            value: 0,
+                            currency: 'USD'
+                        });
+                    }
+                });
+            }
+        })();
 
         // ═══════════════════════════════════════
         // VOICE DNA HELIX — Forensic AI Canvas

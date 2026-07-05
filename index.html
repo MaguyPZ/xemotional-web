@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xemotional — Análisis Forense de Voz por WhatsApp</title>
-    <meta name="description" content="Servicio profesional de análisis forense de voz con IA. Envía cualquier audio por WhatsApp y recibe un informe detallado. 100% confidencial, cero almacenamiento de datos.">
-    <meta name="keywords" content="análisis de voz, forense, credibilidad, WhatsApp, inteligencia artificial, estrés vocal, emociones">
+    <title>Xemotional — Análisis Forense de Voz con Inteligencia Artificial</title>
+    <meta name="description" content="Servicio profesional de análisis forense de voz con IA. Evaluación de credibilidad, estrés vocal y emociones para litigación, RRHH y peritaje judicial. 100% confidencial, cero datos almacenados.">
+    <meta name="keywords" content="análisis forense de voz, peritaje de audio, credibilidad vocal, estrés vocal, inteligencia artificial, consultoría bioacústica, análisis de audio WhatsApp">
     <meta name="author" content="Xemotional">
-    <meta property="og:title" content="Xemotional — Análisis Forense de Voz por WhatsApp">
-    <meta property="og:description" content="Envía cualquier audio por WhatsApp. Recibe un informe forense profesional. 0% datos almacenados.">
+    <meta property="og:title" content="Xemotional — Análisis Forense de Voz">
+    <meta property="og:description" content="Evaluación bioacústica de credibilidad, estrés cognitivo y emociones mediante IA forense. Confidencial. Sin datos almacenados.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://xemotional.com">
     <meta property="og:image" content="https://xemotional.com/og-preview.png">
@@ -17,248 +17,494 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="https://xemotional.com/og-preview.png">
     <link rel="canonical" href="https://xemotional.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
+        /* ═══════════════════════════════════════════════
+           SWISS FORENSICS — DESIGN SYSTEM
+        ═══════════════════════════════════════════════ */
         :root {
-            --primary: #0078d4;
-            --primary-dark: #106ebe;
-            --primary-light: #deecf9;
-            --secondary: #00a4ef;
-            --accent: #ffb900;
-            --success: #107c10;
-            --success-bg: #dff6dd;
-            --danger: #d13438;
-            --whatsapp: #25d366;
-            --whatsapp-dark: #128c7e;
-            --bg-white: #ffffff;
-            --bg-light: #faf9f8;
-            --bg-subtle: #f3f2f1;
-            --bg-card: #ffffff;
-            --bg-footer: #1b1a19;
-            --text-primary: #323130;
-            --text-secondary: #605e5c;
-            --text-muted: #a19f9d;
-            --text-on-dark: #f3f2f1;
-            --border: #edebe9;
-            --shadow-sm: 0 2px 4px rgba(0,0,0,0.04);
-            --shadow-md: 0 4px 16px rgba(0,0,0,0.07);
-            --shadow-lg: 0 8px 30px rgba(0,0,0,0.10);
-            --transition: 0.25s cubic-bezier(0.4,0,0.2,1);
-        }
-        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-        html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
-        body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg-white);color:var(--text-primary);line-height:1.6;overflow-x:hidden}
-        img{max-width:100%;display:block}
-        a{text-decoration:none;color:inherit}
-        .container{max-width:1140px;margin:0 auto;padding:0 24px}
-
-        /* NAV */
-        .nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(255,255,255,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);transition:var(--transition)}
-        .nav.scrolled{box-shadow:var(--shadow-sm)}
-        .nav-inner{max-width:1140px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;padding:0 24px}
-        .nav-logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;color:var(--text-primary)}
-        .nav-logo-icon{width:36px;height:36px;background:var(--primary);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem;color:#fff}
-        .nav-links{display:flex;gap:28px;list-style:none}
-        .nav-links a{font-size:.88rem;font-weight:500;color:var(--text-secondary);transition:color var(--transition)}
-        .nav-links a:hover{color:var(--primary)}
-        /* FLOATING WA BUTTON */
-        .floating-wa{position:fixed;bottom:28px;right:28px;z-index:9999;display:inline-flex;align-items:center;gap:10px;padding:16px 28px;background:var(--whatsapp);border-radius:50px;font-size:.95rem;font-weight:700;color:#fff;border:none;cursor:pointer;transition:all .3s ease;box-shadow:0 6px 28px rgba(37,211,102,.45);text-decoration:none;font-family:inherit;animation:floatPulse 3s ease-in-out infinite}
-        .floating-wa:hover{background:var(--whatsapp-dark);transform:translateY(-4px) scale(1.05);box-shadow:0 10px 40px rgba(37,211,102,.55)}
-        .floating-wa .wa-icon{font-size:1.3rem}
-        @keyframes floatPulse{0%,100%{box-shadow:0 6px 28px rgba(37,211,102,.45)}50%{box-shadow:0 6px 40px rgba(37,211,102,.7)}}
-        .nav-mobile-btn{display:none;background:none;border:none;color:var(--text-primary);font-size:1.5rem;cursor:pointer;padding:8px}
-
-        /* HERO */
-        .hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:100px 24px 80px;background:linear-gradient(170deg,var(--bg-white) 0%,var(--bg-light) 40%,#edf5fd 100%)}
-        .hero-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;width:100%}
-        .hero-content{max-width:540px}
-        .hero-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;background:rgba(0,120,212,.06);border:1px solid rgba(0,120,212,.12);border-radius:50px;font-size:.8rem;font-weight:600;color:var(--primary);margin-bottom:24px}
-        .hero-badge-dot{width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse-dot 2s infinite}
-        @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-        .hero h1{font-size:clamp(2.2rem,4.8vw,3.4rem);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;color:var(--text-primary)}
-        .hero h1 .accent{color:var(--primary)}
-        .hero-desc{font-size:1.08rem;color:var(--text-secondary);line-height:1.75;margin-bottom:32px;max-width:460px}
-        .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:28px}
-        .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border-radius:6px;font-size:.95rem;font-weight:600;cursor:pointer;transition:all var(--transition);border:none;font-family:inherit}
-        .btn-wa{background:var(--whatsapp);color:#fff;box-shadow:0 4px 16px rgba(37,211,102,.25)}
-        .btn-wa:hover{background:var(--whatsapp-dark);transform:translateY(-2px);box-shadow:0 6px 24px rgba(37,211,102,.35)}
-        .btn-outline{background:var(--bg-white);color:var(--text-primary);border:1px solid var(--border)}
-        .btn-outline:hover{border-color:var(--primary);color:var(--primary)}
-        .btn-primary{background:var(--primary);color:#fff;box-shadow:0 4px 16px rgba(0,120,212,.2)}
-        .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px)}
-        .hero-trust{display:flex;gap:20px;flex-wrap:wrap}
-        .hero-trust-item{display:flex;align-items:center;gap:6px;font-size:.82rem;color:var(--text-secondary);font-weight:500}
-        .hero-trust-item .icon{font-size:1rem}
-
-        /* HERO VISUAL */
-        .hero-visual{display:flex;align-items:center;justify-content:center}
-        .hero-card{width:100%;max-width:440px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:32px;box-shadow:var(--shadow-lg);position:relative;overflow:hidden}
-        .hero-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--whatsapp))}
-        .hero-card-label{display:flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:18px}
-        .waveform{display:flex;align-items:center;justify-content:center;gap:2.5px;height:80px;background:var(--bg-subtle);border-radius:8px;padding:0 14px;margin-bottom:20px}
-        .wave-bar{width:3px;border-radius:3px;background:linear-gradient(to top,var(--primary),var(--secondary));animation:wave 1.2s ease-in-out infinite}
-        @keyframes wave{0%,100%{height:10%;opacity:.2}50%{height:95%;opacity:1;box-shadow:0 0 8px var(--primary)}}
-        .hero-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-        .hero-metric{background:var(--bg-subtle);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;transition:all var(--transition)}
-        .hero-metric:hover{border-color:rgba(0,120,212,.2);background:var(--bg-white)}
-        .hero-metric-val{font-size:1.4rem;font-weight:800}
-        .hero-metric-val.blue{color:var(--primary)}
-        .hero-metric-val.cyan{color:var(--secondary)}
-        .hero-metric-val.green{color:var(--success)}
-        .hero-metric-val.gold{color:var(--accent)}
-        .hero-metric-lbl{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
-
-        @keyframes fade-up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
-        .hero-content{animation:fade-up .8s ease-out}
-        .hero-visual{animation:fade-up .8s ease-out .3s both}
-
-        /* TRUST BAR */
-        .trust-bar{padding:48px 24px;background:var(--bg-white);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
-        .trust-stats{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center}
-        .trust-stat-val{font-size:2rem;font-weight:900;color:var(--primary);letter-spacing:-.02em}
-        .trust-stat-lbl{font-size:.82rem;color:var(--text-muted);margin-top:4px;font-weight:500}
-
-        /* SECTIONS */
-        .section{padding:96px 24px;position:relative}
-        .section-hdr{text-align:center;margin-bottom:56px}
-        .section-tag{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;background:rgba(0,120,212,.05);border:1px solid rgba(0,120,212,.1);border-radius:50px;font-size:.76rem;font-weight:600;color:var(--primary);text-transform:uppercase;letter-spacing:.08em;margin-bottom:18px}
-        .section-hdr h2{font-size:clamp(1.8rem,3.5vw,2.4rem);font-weight:800;letter-spacing:-.025em;margin-bottom:12px;color:var(--text-primary)}
-        .section-hdr p{font-size:1rem;color:var(--text-secondary);max-width:520px;margin:0 auto}
-
-        /* WHATSAPP SECTION */
-        .wa-section{background:var(--bg-subtle)}
-        .wa-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-        .wa-phone{max-width:340px;margin:0 auto;background:#fff;border-radius:20px;border:1px solid var(--border);box-shadow:var(--shadow-lg);overflow:hidden}
-        .wa-phone-header{background:var(--whatsapp-dark);padding:14px 18px;display:flex;align-items:center;gap:12px;color:#fff}
-        .wa-phone-avatar{width:36px;height:36px;background:var(--whatsapp);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem}
-        .wa-phone-name{font-weight:600;font-size:.9rem}
-        .wa-phone-status{font-size:.72rem;opacity:.8}
-        .wa-phone-chat{padding:16px;background:#e5ddd5;min-height:260px;display:flex;flex-direction:column;gap:8px}
-        .wa-msg{max-width:80%;padding:8px 12px;border-radius:8px;font-size:.82rem;line-height:1.5;position:relative}
-        .wa-msg.sent{align-self:flex-end;background:#dcf8c6;border-bottom-right-radius:2px}
-        .wa-msg.received{align-self:flex-start;background:#fff;border-bottom-left-radius:2px}
-        .wa-msg .time{font-size:.65rem;color:var(--text-muted);text-align:right;margin-top:4px}
-        .wa-msg .audio-icon{display:flex;align-items:center;gap:6px;color:var(--whatsapp-dark);font-weight:600}
-        .wa-content h3{font-size:1.6rem;font-weight:800;margin-bottom:16px;color:var(--text-primary);letter-spacing:-.02em}
-        .wa-content p{color:var(--text-secondary);font-size:.95rem;line-height:1.8;margin-bottom:16px}
-        .wa-steps{list-style:none;margin:20px 0 28px}
-        .wa-steps li{display:flex;align-items:flex-start;gap:12px;padding:10px 0;font-size:.92rem;color:var(--text-secondary)}
-        .wa-steps li .num{width:28px;height:28px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0}
-
-        /* SECURITY */
-        .security-section{background:var(--bg-white)}
-        .security-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-        .sec-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:28px;transition:all var(--transition);position:relative;overflow:hidden}
-        .sec-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary);opacity:0;transition:opacity var(--transition)}
-        .sec-card:hover{border-color:rgba(0,120,212,.18);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-        .sec-card:hover::before{opacity:1}
-        .sec-icon{width:48px;height:48px;background:rgba(0,120,212,.06);border:1px solid rgba(0,120,212,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:16px}
-        .sec-card h3{font-size:1.02rem;font-weight:700;margin-bottom:8px;color:var(--text-primary)}
-        .sec-card p{font-size:.88rem;color:var(--text-secondary);line-height:1.7}
-
-        /* PLEDGE */
-        .pledge{max-width:1140px;margin:40px auto 0;background:linear-gradient(135deg,#edf5fd,#e3f2ff);border:1px solid rgba(0,120,212,.12);border-radius:10px;padding:32px 36px;display:flex;align-items:center;gap:20px}
-        .pledge-shield{font-size:2.6rem;flex-shrink:0}
-        .pledge h3{font-size:1.1rem;font-weight:700;margin-bottom:6px;color:var(--text-primary)}
-        .pledge p{color:var(--text-secondary);font-size:.9rem;line-height:1.7}
-
-        /* USE CASES */
-        .cases-section{background:var(--bg-subtle)}
-        .cases-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-        .case-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:28px;display:flex;gap:16px;transition:all var(--transition)}
-        .case-card:hover{border-color:rgba(0,120,212,.18);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-        .case-emoji{font-size:2rem;flex-shrink:0}
-        .case-card h3{font-size:1rem;font-weight:700;margin-bottom:6px;color:var(--text-primary)}
-        .case-card p{font-size:.86rem;color:var(--text-secondary);line-height:1.65}
-
-        /* TECHNOLOGY */
-        .tech-section{background:var(--bg-white)}
-        .tech-grid{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
-        .tech-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:28px;display:flex;gap:16px;transition:all var(--transition)}
-        .tech-card:hover{border-color:rgba(0,120,212,.18);transform:translateY(-3px);box-shadow:var(--shadow-md)}
-        .tech-icon{width:44px;height:44px;background:var(--primary);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;color:#fff}
-        .tech-card h3{font-size:.98rem;font-weight:700;margin-bottom:6px;color:var(--text-primary)}
-        .tech-card p{font-size:.86rem;color:var(--text-secondary);line-height:1.65}
-
-        /* FAQ */
-        .faq-section{background:var(--bg-subtle)}
-        .faq-list{max-width:700px;margin:0 auto}
-        .faq-item{border-bottom:1px solid var(--border)}
-        .faq-question{width:100%;background:none;border:none;color:var(--text-primary);font-family:inherit;font-size:1rem;font-weight:600;text-align:left;padding:20px 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color var(--transition)}
-        .faq-question:hover{color:var(--primary)}
-        .faq-chevron{font-size:1rem;transition:transform var(--transition);color:var(--text-muted);flex-shrink:0}
-        .faq-item.open .faq-chevron{transform:rotate(180deg);color:var(--primary)}
-        .faq-answer{max-height:0;overflow:hidden;transition:max-height .4s ease}
-        .faq-item.open .faq-answer{max-height:300px}
-        .faq-answer p{color:var(--text-secondary);font-size:.9rem;line-height:1.7;padding-bottom:20px}
-
-        /* CTA */
-        .cta-section{text-align:center;background:var(--bg-white)}
-        .cta-box{max-width:660px;margin:0 auto;background:linear-gradient(135deg,#edf5fd,#e3f0ff);border:1px solid rgba(0,120,212,.12);border-radius:10px;padding:52px 40px}
-        .cta-box h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;margin-bottom:14px;color:var(--text-primary)}
-        .cta-box p{color:var(--text-secondary);font-size:1rem;margin-bottom:28px;max-width:460px;margin-left:auto;margin-right:auto}
-        .cta-sub{font-size:.85rem;color:var(--text-muted);margin-top:16px}
-
-        /* FOOTER */
-        .footer{padding:52px 24px 24px;background:var(--bg-footer);color:var(--text-on-dark)}
-        .footer-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}
-        .footer-brand p{color:rgba(255,255,255,.6);font-size:.85rem;margin-top:12px;line-height:1.7;max-width:260px}
-        .footer-col h4{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.5);margin-bottom:16px}
-        .footer-col a{display:block;color:rgba(255,255,255,.6);font-size:.85rem;padding:4px 0;transition:color var(--transition)}
-        .footer-col a:hover{color:#fff}
-        .footer-bottom{max-width:1140px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;font-size:.78rem;color:rgba(255,255,255,.4)}
-        .footer-legal{display:flex;gap:20px}
-        .footer-legal a{color:rgba(255,255,255,.4);transition:color var(--transition)}
-        .footer-legal a:hover{color:#fff}
-
-        /* SCROLL ANIMATION */
-        .anim{opacity:0;transform:translateY(22px);transition:opacity .6s ease-out,transform .6s ease-out}
-        .anim.visible{opacity:1;transform:translateY(0)}
-
-        /* RESPONSIVE */
-        @media(max-width:1024px){
-            .hero-inner,.wa-grid{grid-template-columns:1fr;text-align:center}
-            .hero-content{max-width:100%}
-            .hero-desc{margin:0 auto 32px}
-            .hero-actions,.hero-trust{justify-content:center}
-            .hero-card{max-width:380px;margin:0 auto}
-            .security-grid{grid-template-columns:1fr 1fr}
-            .cases-grid{grid-template-columns:1fr 1fr}
-            .trust-stats{grid-template-columns:repeat(2,1fr);gap:24px}
-            .footer-inner{grid-template-columns:1fr 1fr}
-            .wa-phone{margin:0 auto 20px}
-            .wa-content{text-align:center}
-            .wa-steps{text-align:left;max-width:400px;margin-left:auto;margin-right:auto}
-        }
-        @media(max-width:768px){
-            .nav-links{display:none}
-            .nav-mobile-btn{display:block}
-            .nav-links.mobile-open{display:flex;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:rgba(255,255,255,.97);backdrop-filter:blur(16px);padding:20px 24px;gap:16px;border-bottom:1px solid var(--border);box-shadow:var(--shadow-md)}
-            .security-grid,.cases-grid,.tech-grid{grid-template-columns:1fr}
-            .section{padding:64px 20px}
-            .pledge{flex-direction:column;text-align:center;padding:24px 20px}
-            .cta-box{padding:36px 20px}
-            .footer-inner{grid-template-columns:1fr;gap:24px}
-            .footer-bottom{flex-direction:column;gap:12px;text-align:center}
-        }
-        @media(max-width:480px){
-            .hero h1{font-size:2rem}
-            .hero-actions{flex-direction:column;align-items:center}
-            .hero-metrics{grid-template-columns:1fr}
-            .trust-stats{grid-template-columns:1fr 1fr}
+            --navy:        #0F172A;
+            --navy-mid:    #1E293B;
+            --navy-light:  #334155;
+            --steel:       #4F46E5;
+            --steel-soft:  #6366F1;
+            --steel-light: #EEF2FF;
+            --bg:          #FFFFFF;
+            --bg-section:  #F8FAFC;
+            --bg-dark:     #0F172A;
+            --slate:       #475569;
+            --muted:       #94A3B8;
+            --border:      #E2E8F0;
+            --text-primary:   #0F172A;
+            --text-secondary: #475569;
+            --text-muted:     #94A3B8;
+            --wa-green:    #25D366;
+            --wa-dark:     #128C7E;
+            --shadow-sm:   0 1px 3px rgba(15,23,42,0.03), 0 1px 2px rgba(15,23,42,0.02);
+            --shadow-md:   0 8px 30px rgba(15,23,42,0.04), 0 2px 8px rgba(15,23,42,0.02);
+            --shadow-lg:   0 30px 60px rgba(15,23,42,0.06), 0 10px 20px rgba(15,23,42,0.03);
+            --radius:      8px;
+            --radius-lg:   16px;
+            --transition:  0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* HERO CANVAS */
-        #hero-canvas{position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
-        .hero{position:relative;overflow:hidden}
-        .hero-inner{position:relative;z-index:2}
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+        img { max-width: 100%; display: block; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
 
-        /* FLOATING SHAPES REMOVED (Replaced by Aura Canvas) */
+        /* ── NAVIGATION ── */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(255,255,255,0.96);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border);
+            transition: box-shadow var(--transition);
+        }
+        .nav.scrolled { box-shadow: var(--shadow-sm); }
+        .nav-inner {
+            max-width: 1140px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 68px; padding: 0 24px;
+        }
+        .nav-logo {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 700; font-size: 1.05rem; color: var(--navy);
+            letter-spacing: -0.01em; flex-shrink: 0;
+        }
+        .nav-logo img { width: 30px; height: 30px; object-fit: contain; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a {
+            font-size: 0.85rem; font-weight: 500; color: var(--slate);
+            transition: color var(--transition); letter-spacing: 0.01em;
+        }
+        .nav-links a:hover { color: var(--navy); }
+        .nav-cta {
+            display: inline-flex; align-items: center; gap: 7px;
+            padding: 9px 18px; background: var(--navy); color: #fff;
+            border-radius: var(--radius); font-size: 0.84rem; font-weight: 600;
+            transition: all var(--transition); flex-shrink: 0;
+        }
+        .nav-cta:hover { background: var(--navy-mid); }
+        .nav-mobile-btn {
+            display: none; background: none; border: none; cursor: pointer;
+            padding: 6px; color: var(--navy); line-height: 1;
+        }
 
-        /* SCANNING LINE */
-        .scan-line{position:absolute;top:0;left:0;width:100%;height:4px;background:linear-gradient(90deg,transparent,var(--primary),var(--secondary),transparent);opacity:.3;z-index:1;animation:scan 4s linear infinite;box-shadow:0 0 15px rgba(0,120,212,0.5)}
-        @keyframes scan{0%{top:0;opacity:.2}50%{opacity:.6}100%{top:100%;opacity:.2}}
+        /* ── BUTTONS ── */
+        .btn {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 13px 22px; border-radius: var(--radius);
+            font-size: 0.9rem; font-weight: 600; cursor: pointer;
+            transition: all var(--transition); border: none; font-family: inherit;
+            letter-spacing: 0.01em;
+        }
+        .btn-primary { background: var(--navy); color: #fff; box-shadow: var(--shadow-sm); }
+        .btn-primary:hover { background: var(--navy-mid); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+        .btn-wa { background: var(--wa-green); color: #fff; box-shadow: 0 1px 4px rgba(37,211,102,0.25); }
+        .btn-wa:hover { background: var(--wa-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(37,211,102,0.35); }
+        .btn-ghost { background: transparent; color: var(--navy); border: 1px solid var(--border); }
+        .btn-ghost:hover { border-color: var(--navy); background: var(--bg-section); }
+        .btn-white { background: #fff; color: var(--navy); }
+        .btn-white:hover { background: #f1f5f9; }
+        .btn-ghost-white { background: transparent; color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.15); }
+        .btn-ghost-white:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 120px 24px 80px; background: var(--bg);
+            position: relative; overflow: hidden;
+        }
+        .hero-grid-bg {
+            position: absolute; inset: 0; pointer-events: none;
+            background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
+            background-size: 36px 36px;
+            opacity: 0.5;
+        }
+        .hero-inner {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px;
+            align-items: center; width: 100%; position: relative; z-index: 1;
+        }
+        .hero-eyebrow {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.71rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--steel); margin-bottom: 22px;
+        }
+        .hero-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--steel); }
+        .hero h1 {
+            font-size: clamp(2.1rem, 4.2vw, 3.3rem); font-weight: 800;
+            line-height: 1.1; letter-spacing: -0.032em; color: var(--navy);
+            margin-bottom: 22px;
+        }
+        .hero h1 .dot { color: var(--steel); }
+        .hero-desc {
+            font-size: 1rem; color: var(--slate); line-height: 1.82;
+            margin-bottom: 34px; max-width: 520px; font-weight: 400;
+        }
+        .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
+        .hero-trust {
+            display: flex; flex-direction: column; gap: 11px;
+            padding-top: 28px; border-top: 1px solid var(--border);
+        }
+        .hero-trust-item {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 0.82rem; color: var(--slate); font-weight: 500;
+        }
+        .ht-icon {
+            width: 16px; height: 16px; flex-shrink: 0; color: var(--steel);
+        }
+        @keyframes fade-up { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+        .hero-content { animation: fade-up 0.75s ease-out; }
+        .hero-visual  { animation: fade-up 0.75s ease-out 0.2s both; }
+
+        /* Hero — Clinical Console */
+        .hero-visual { display: flex; align-items: center; justify-content: flex-end; }
+        .clinical-console {
+            width: 100%; max-width: 490px;
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+        }
+        .console-header {
+            background: var(--navy); padding: 13px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .console-title {
+            font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.5);
+            letter-spacing: 0.1em; text-transform: uppercase;
+        }
+        .console-status { display: flex; align-items: center; gap: 6px; font-size: 0.67rem; color: rgba(255,255,255,0.45); }
+        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: blink 2s infinite; }
+        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+        .console-canvas-wrap { background: #F8FAFC; border-bottom: 1px solid var(--border); position: relative; }
+        #hero-canvas { display: block; width: 100%; height: 160px; }
+        .console-metrics { display: grid; grid-template-columns: repeat(3,1fr); }
+        .c-metric {
+            padding: 16px 18px;
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .c-metric:last-child { border-right: none; }
+        .c-metric-lbl { font-size: 0.63rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
+        .c-metric-val { font-size: 1.25rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
+        .c-metric-val.ok { color: #16A34A; }
+        .c-metric-val.blue { color: var(--steel); }
+        .c-metric-sub { font-size: 0.66rem; color: var(--muted); margin-top: 2px; }
+        .console-footer {
+            padding: 11px 20px; background: var(--navy);
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .cf-label { font-size: 0.66rem; color: rgba(255,255,255,0.35); font-family: 'Courier New', monospace; }
+        .cf-status { font-size: 0.66rem; color: #22C55E; font-family: 'Courier New', monospace; }
+
+        /* ── TRUST BAR ── */
+        .trust-bar { padding: 48px 24px; background: var(--bg-section); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+        .trust-inner {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(4,1fr); gap: 0;
+        }
+        .trust-item {
+            text-align: center; padding: 0 24px;
+            border-right: 1px solid var(--border);
+        }
+        .trust-item:last-child { border-right: none; }
+        .trust-val { font-size: 1.85rem; font-weight: 800; color: var(--steel); letter-spacing: -0.03em; line-height: 1; margin-bottom: 7px; }
+        .trust-lbl { font-size: 0.74rem; color: var(--text-secondary); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+
+        /* ── SECTIONS ── */
+        .section { padding: 96px 24px; }
+        .section--grey { background: var(--bg-section); }
+        .section-hdr { text-align: center; margin-bottom: 64px; }
+        .section-eyebrow {
+            display: inline-flex; align-items: center; gap: 12px;
+            font-size: 0.71rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--steel); margin-bottom: 18px;
+        }
+        .section-eyebrow::before, .section-eyebrow::after { content:''; width:28px; height:1px; background:var(--border); display:block; }
+        .section-hdr h2 {
+            font-size: clamp(1.65rem, 2.8vw, 2.15rem); font-weight: 700;
+            letter-spacing: -0.025em; color: var(--navy);
+            margin-bottom: 14px; line-height: 1.22;
+        }
+        .section-hdr p { font-size: 0.97rem; color: var(--slate); max-width: 540px; margin: 0 auto; line-height: 1.8; }
+
+        /* ── HOW IT WORKS ── */
+        .steps-grid {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 24px;
+        }
+        .step-card {
+            padding: 36px 28px; background: var(--bg);
+            border: 1px solid var(--border); border-radius: var(--radius-lg);
+            transition: all var(--transition); position: relative;
+        }
+        .step-card:hover { border-color: var(--navy); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .step-phase {
+            font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
+            font-family: 'Courier New', monospace;
+        }
+        .step-icon-wrap {
+            width: 44px; height: 44px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--steel-light); border-radius: var(--radius);
+            margin-bottom: 20px; color: var(--steel);
+        }
+        .step-icon-wrap svg { width: 20px; height: 20px; }
+        .step-card h3 { font-size: 1.02rem; font-weight: 700; color: var(--navy); margin-bottom: 11px; letter-spacing: -0.01em; }
+        .step-card p { font-size: 0.87rem; color: var(--slate); line-height: 1.75; }
+
+        /* ── REPORT MOCKUP ── */
+        .report-layout {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center;
+        }
+        .report-eyebrow {
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.71rem; font-weight: 700; letter-spacing: 0.12em;
+            text-transform: uppercase; color: var(--steel); margin-bottom: 18px;
+        }
+        .report-eyebrow::before { content:''; width:22px; height:1px; background:var(--steel); }
+        .report-content h2 {
+            font-size: clamp(1.55rem, 2.4vw, 2rem); font-weight: 700;
+            letter-spacing: -0.025em; color: var(--navy); margin-bottom: 14px; line-height: 1.25;
+        }
+        .report-content p { font-size: 0.93rem; color: var(--slate); line-height: 1.82; margin-bottom: 24px; }
+        .report-features { list-style: none; margin-bottom: 32px; }
+        .report-features li {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 0; font-size: 0.86rem; color: var(--slate);
+            border-bottom: 1px solid var(--border);
+        }
+        .report-features li:last-child { border-bottom: none; }
+        .rf-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--steel); flex-shrink: 0; }
+
+        .report-mock {
+            background: #fff; border: 1px solid var(--border);
+            border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+        }
+        .rm-header {
+            background: var(--navy); padding: 18px 22px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .rm-logo { font-size: 0.78rem; font-weight: 700; color: #fff; letter-spacing: 0.06em; }
+        .rm-ref  { font-size: 0.66rem; color: rgba(255,255,255,0.35); font-family: 'Courier New', monospace; }
+        .rm-classification {
+            background: var(--steel-light); border-bottom: 1px solid var(--border);
+            padding: 7px 22px; display: flex; align-items: center; gap: 10px;
+        }
+        .rm-badge {
+            font-size: 0.63rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--steel);
+            padding: 2px 8px; border: 1px solid var(--steel); border-radius: 2px;
+        }
+        .rm-badge-label { font-size: 0.69rem; color: var(--slate); }
+        .rm-body { padding: 18px 22px; }
+        .rm-field {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+            padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.78rem;
+        }
+        .rm-field:last-of-type { border-bottom: none; }
+        .rm-field-lbl { color: var(--muted); font-weight: 500; }
+        .rm-field-val { color: var(--navy); font-weight: 600; text-align: right; }
+        .rm-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0; }
+        .rm-metric-card {
+            background: var(--bg-section); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 12px 14px;
+        }
+        .rmc-lbl { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+        .rmc-val { font-size: 1.08rem; font-weight: 700; color: var(--navy); }
+        .rmc-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+        .rmc-fill { height: 100%; border-radius: 2px; }
+        .rm-verdict {
+            background: var(--navy); border-radius: var(--radius);
+            padding: 14px 18px; margin-top: 14px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .rv-label { font-size: 0.68rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; }
+        .rv-value { font-size: 1.02rem; font-weight: 700; color: #22C55E; }
+
+        /* ── SCIENCE ── */
+        .science-grid {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(2,1fr); gap: 20px;
+        }
+        .sci-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 32px;
+            transition: all var(--transition);
+        }
+        .sci-card:hover { border-color: var(--navy); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .sci-mod {
+            font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--steel); margin-bottom: 14px;
+            font-family: 'Courier New', monospace;
+        }
+        .sci-card h3 { font-size: 1.02rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.01em; }
+        .sci-card p  { font-size: 0.86rem; color: var(--slate); line-height: 1.78; }
+        .sci-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+        .sci-tag {
+            padding: 3px 10px; background: var(--steel-light); border-radius: 2px;
+            font-size: 0.68rem; color: var(--steel); font-weight: 600;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ── USE CASES ── */
+        .cases-grid {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(2,1fr); gap: 20px;
+        }
+        .case-card {
+            background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); padding: 30px;
+            display: flex; gap: 20px; transition: all var(--transition);
+        }
+        .case-card:hover { border-color: var(--navy); box-shadow: var(--shadow-md); }
+        .case-icon {
+            width: 46px; height: 46px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-section); border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--navy);
+        }
+        .case-icon svg { width: 20px; height: 20px; }
+        .case-card h3 { font-size: 0.98rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; letter-spacing: -0.01em; }
+        .case-card p  { font-size: 0.85rem; color: var(--slate); line-height: 1.72; }
+        .case-list { list-style: none; margin-top: 12px; }
+        .case-list li { font-size: 0.79rem; color: var(--slate); padding: 3px 0; display: flex; align-items: center; gap: 8px; }
+        .case-list li::before { content: '→'; color: var(--steel); font-size: 0.72rem; flex-shrink: 0; }
+
+        /* ── SECURITY ── */
+        .security-grid {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3,1fr); gap: 20px;
+        }
+        .sec-card {
+            padding: 28px; background: var(--bg); border: 1px solid var(--border);
+            border-radius: var(--radius-lg); transition: all var(--transition);
+        }
+        .sec-card:hover { border-color: var(--navy); }
+        .sec-icon {
+            width: 40px; height: 40px; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-section); border: 1px solid var(--border);
+            border-radius: var(--radius); color: var(--navy);
+        }
+        .sec-icon svg { width: 18px; height: 18px; }
+        .sec-card h3 { font-size: 0.94rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+        .sec-card p  { font-size: 0.83rem; color: var(--slate); line-height: 1.72; }
+        .pledge-bar {
+            max-width: 1140px; margin: 36px auto 0;
+            background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 28px 36px; display: flex; align-items: center; gap: 20px;
+        }
+        .pledge-icon { font-size: 2rem; flex-shrink: 0; }
+        .pledge-bar h3 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
+        .pledge-bar p  { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.65; }
+
+        /* ── FAQ ── */
+        .faq-list { max-width: 720px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--border); }
+        .faq-q {
+            width: 100%; background: none; border: none; font-family: inherit;
+            font-size: 0.95rem; font-weight: 600; color: var(--navy);
+            text-align: left; padding: 20px 0; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 16px; transition: color var(--transition);
+        }
+        .faq-q:hover { color: var(--steel); }
+        .faq-chevron { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); transition: transform var(--transition); }
+        .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--steel); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+        .faq-item.open .faq-a { max-height: 400px; }
+        .faq-a p { font-size: 0.87rem; color: var(--slate); line-height: 1.82; padding-bottom: 20px; }
+        .faq-a code { font-family:'Courier New',monospace; font-size:0.84em; background:var(--bg-section); padding:1px 5px; border-radius:3px; }
+
+        /* ── CTA ── */
+        .cta-box {
+            max-width: 820px; margin: 0 auto; text-align: center;
+            background: linear-gradient(135deg, var(--bg-section), rgba(99, 102, 241, 0.04)); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 60px 52px;
+        }
+        .cta-tag { display: inline-block; font-size: 0.69rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--steel); margin-bottom: 22px; }
+        .cta-box h2 { font-size: clamp(1.75rem, 3vw, 2.4rem); font-weight: 800; color: var(--text-primary); letter-spacing: -0.025em; margin-bottom: 18px; line-height: 1.15; }
+        .cta-box > p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 36px; }
+        .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        .cta-note { font-size: 0.76rem; color: var(--text-muted); margin-top: 22px; }
+
+        /* ── FOOTER ── */
+        .footer { background: var(--bg-section); padding: 60px 24px 30px; color: var(--text-primary); border-top: 1px solid var(--border); }
+        .footer-inner {
+            max-width: 1140px; margin: 0 auto;
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 52px;
+        }
+        .footer-brand-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.02rem; }
+        .footer-brand-logo img { width: 26px; height: 26px; object-fit: contain; }
+        .footer-brand p { font-size: 0.82rem; color: var(--text-secondary); margin-top: 14px; line-height: 1.72; max-width: 260px; }
+        .footer-col h4 { font-size: 0.69rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 18px; }
+        .footer-col a { display: block; color: var(--text-secondary); font-size: 0.83rem; padding: 5px 0; transition: color var(--transition); }
+        .footer-col a:hover { color: var(--steel); }
+        .footer-bottom {
+            max-width: 1140px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            border-top: 1px solid var(--border); padding-top: 26px;
+            font-size: 0.77rem; color: var(--text-muted);
+        }
+        .footer-legal { display: flex; gap: 20px; }
+        .footer-legal a { color: var(--text-muted); transition: color var(--transition); }
+        .footer-legal a:hover { color: var(--text-secondary); }
+
+        /* ── FLOATING WA ── */
+        .floating-wa {
+            position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 12px 20px; background: var(--wa-green); color: #fff;
+            border-radius: 50px; font-size: 0.86rem; font-weight: 600;
+            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+            transition: all var(--transition);
+        }
+        .floating-wa:hover { background: var(--wa-dark); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+
+        /* ── SCROLL ANIMATIONS ── */
+        .anim { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease-out, transform 0.55s ease-out; }
+        .anim.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .hero-inner { grid-template-columns: 1fr; gap: 48px; text-align: left; }
+            .report-layout { grid-template-columns: 1fr; }
+            .science-grid { grid-template-columns: 1fr; }
+            .trust-inner { grid-template-columns: repeat(2,1fr); }
+            .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); padding: 16px 0; }
+            .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .nav-mobile-btn { display: flex; align-items: center; justify-content: center; }
+            .nav-links.mobile-open {
+                display: flex; flex-direction: column; gap: 0;
+                position: absolute; top: 68px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98); backdrop-filter: blur(12px);
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-links.mobile-open li a { display: block; padding: 14px 24px; border-bottom: 1px solid var(--border); }
+            .steps-grid, .cases-grid, .security-grid { grid-template-columns: 1fr; }
+            .section { padding: 72px 20px; }
+            .cta-box { padding: 44px 24px; }
+            .pledge-bar { flex-direction: column; text-align: center; }
+            .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+            .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+            .hero-visual { display: none; }
+        }
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 1.95rem; }
+            .hero-actions { flex-direction: column; }
+            .trust-inner { grid-template-columns: 1fr; }
+            .rm-metrics { grid-template-columns: 1fr; }
+            .cta-actions { flex-direction: column; align-items: center; }
+        }
     </style>
 
     <!-- Meta Pixel Code — Xemotional (Pixel ID: 1664455858206047) -->
@@ -274,724 +520,718 @@
     fbq('init', '1664455858206047');
     fbq('track', 'PageView');
     </script>
-    <noscript>
-      <img height="1" width="1" style="display:none"
-           src="https://www.facebook.com/tr?id=1664455858206047&ev=PageView&noscript=1"/>
-    </noscript>
+    <noscript><img height="1" width="1" style="display:none"
+         src="https://www.facebook.com/tr?id=1664455858206047&ev=PageView&noscript=1"/></noscript>
     <!-- End Meta Pixel Code -->
 </head>
 <body>
-    <!-- NAV -->
-    <nav class="nav" id="nav">
-        <div class="nav-inner">
-            <a href="#" class="nav-logo">
-                <img src="LogoWhap.png" alt="Logo" class="nav-logo-icon" style="background:transparent; padding:0; object-fit: contain;">
-                <span>Xemotional</span>
-            </a>
-            <ul class="nav-links" id="nav-links">
-                <li><a href="#whatsapp">WhatsApp</a></li>
-                <li><a href="#seguridad">Seguridad</a></li>
-                <li><a href="#casos">Casos de Uso</a></li>
-                <li><a href="#tecnologia">Tecnología</a></li>
-                <li><a href="#faq">FAQ</a></li>
-            </ul>
-            <!-- WhatsApp button moved to floating position -->
-            <button class="nav-mobile-btn" id="mobile-menu-btn" aria-label="Menú">☰</button>
-        </div>
-    </nav>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-        <canvas id="hero-canvas"></canvas>
-        <!-- Hero shapes omitted in favor of the full living canvas background -->
-        <div class="scan-line"></div>
-        <div class="hero-inner">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="hero-badge-dot"></span>
-                    Sistema Forense Profesional
-                </div>
-                <h1>Analiza cualquier audio<br>desde <span class="accent">WhatsApp</span></h1>
-                <p class="hero-desc">
-                    Reenvía cualquier nota de voz o audio a nuestro agente y recibe un informe forense profesional con análisis de emociones, estrés y credibilidad. <strong>Tus datos nunca se almacenan.</strong>
-                </p>
-                <div class="hero-actions">
-                    <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="btn btn-wa" id="hero-wa-btn">
-                        💬 Enviar Audio por WhatsApp
-                    </a>
-                    <a href="#seguridad" class="btn btn-outline">
-                        🔒 Conoce Nuestra Seguridad
-                    </a>
-                </div>
-                <div class="hero-trust">
-                    <div class="hero-trust-item"><span class="icon">🔐</span> Cifrado E2E</div>
-                    <div class="hero-trust-item"><span class="icon">🗑️</span> 0% Datos Almacenados</div>
-                    <div class="hero-trust-item"><span class="icon">📄</span> Reporte PDF Inmediato</div>
-                </div>
-            </div>
-            <div class="hero-visual">
-                <div class="hero-card">
-                    <div class="hero-card-label">📊 Resultado del Análisis Forense</div>
-                    <div class="waveform" id="waveform"></div>
-                    <div class="hero-metrics">
-                        <div class="hero-metric">
-                            <div class="hero-metric-val blue">87%</div>
-                            <div class="hero-metric-lbl">Credibilidad</div>
-                        </div>
-                        <div class="hero-metric">
-                            <div class="hero-metric-val cyan">Bajo</div>
-                            <div class="hero-metric-lbl">Estrés Vocal</div>
-                        </div>
-                        <div class="hero-metric">
-                            <div class="hero-metric-val green">😊</div>
-                            <div class="hero-metric-lbl">Emoción</div>
-                        </div>
-                        <div class="hero-metric">
-                            <div class="hero-metric-val gold">42</div>
-                            <div class="hero-metric-lbl">Métricas</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav class="nav" id="nav">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">
+            <img src="LogoWhap.png" alt="Xemotional">
+            Xemotional
+        </a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#metodologia">Metodología</a></li>
+            <li><a href="#ciencia">Ciencia</a></li>
+            <li><a href="#aplicaciones">Aplicaciones</a></li>
+            <li><a href="#seguridad">Seguridad</a></li>
+            <li><a href="#faq">FAQ</a></li>
+        </ul>
+        <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20iniciar%20una%20consulta%20forense" target="_blank" class="nav-cta" id="nav-cta-btn">
+            Consulta Confidencial
+        </a>
+        <button class="nav-mobile-btn" id="mobile-menu-btn" aria-label="Menú">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
+        </button>
+    </div>
+</nav>
 
-    <!-- TRUST BAR -->
-    <section class="trust-bar">
-        <div class="trust-stats anim">
-            <div><div class="trust-stat-val">500+</div><div class="trust-stat-lbl">Análisis Completados</div></div>
-            <div><div class="trust-stat-val">42</div><div class="trust-stat-lbl">Métricas por Audio</div></div>
-            <div><div class="trust-stat-val">IA</div><div class="trust-stat-lbl">Inteligencia Artificial</div></div>
-            <div><div class="trust-stat-val">0%</div><div class="trust-stat-lbl">Datos Almacenados</div></div>
-        </div>
-    </section>
-
-    <!-- WHATSAPP SECTION -->
-    <section class="section wa-section" id="whatsapp">
-        <div class="section-hdr anim">
-            <div class="section-tag">💬 WhatsApp</div>
-            <h2>Tan fácil como enviar un mensaje</h2>
-            <p>No necesitas instalar nada. Solo reenvía el audio que quieres analizar.</p>
-        </div>
-        <div class="wa-grid">
-            <div class="wa-phone anim">
-                <div class="wa-phone-header">
-                    <img src="LogoWhap.png" alt="Avatar" class="wa-phone-avatar" style="background:transparent; object-fit: cover;">
-                    <div>
-                        <div class="wa-phone-name">Xemotional Forense</div>
-                        <div class="wa-phone-status">en línea</div>
-                    </div>
-                </div>
-                <div class="wa-phone-chat">
-                    <div class="wa-msg sent">
-                        <div class="audio-icon">🎙️ Nota de voz (0:47)</div>
-                        <div class="time">10:39 p.m. ✓✓</div>
-                    </div>
-                    <div class="wa-msg received">
-                        ⏳ Tu audio fue recibido. Estamos preparando el análisis, puede tomar 3-5 minutos...
-                        <div class="time">10:39 p.m.</div>
-                    </div>
-                    <div class="wa-msg received">
-                        🔬 Xemotional | Analizando tu nota de voz...<br>
-                        ⏱️ Esto puede tomar ~2 minutos.<br>
-                        Te enviaré el reporte PDF cuando esté listo.
-                        <div class="time">10:39 p.m.</div>
-                    </div>
-                    
-                    <!-- Document Message with Caption -->
-                    <div class="wa-msg received" style="padding: 4px; padding-bottom: 6px; width: 85%;">
-                        <div style="background: rgba(0,0,0,0.04); border-radius: 6px; padding: 10px; display: flex; gap: 12px; align-items: center; margin-bottom: 6px;">
-                            <div style="width: 38px; height: 38px; background: #e53935; color: white; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.85rem; flex-shrink: 0;">PDF</div>
-                            <div style="overflow: hidden;">
-                                <div style="font-size: 0.85rem; font-weight: 600; color: #111; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Reporte_Forense.pdf</div>
-                                <div style="font-size: 0.72rem; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Xemotional — Análisis de Voz</div>
-                            </div>
-                        </div>
-                        <div style="padding: 0 6px; font-size: 0.82rem; line-height: 1.5;">
-                            ✅ Análisis completado<br><br>
-                            📊 Veredicto: <strong>HONESTO</strong><br>
-                            📄 El reporte PDF está arriba ☝️
-                        </div>
-                        <div class="time" style="padding: 0 6px;">10:46 p.m.</div>
-                    </div>
-
-                    <div class="wa-msg received">
-                        🔬 Reporte Express | Veredicto: <strong>HONESTO</strong>
-                        <div class="time">10:46 p.m.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="wa-content anim">
-                <h3>Reenvía cualquier audio y obtén un informe forense completo</h3>
-                <p>¿Quieres saber qué revela la voz de alguien? Simplemente reenvía la nota de voz desde cualquier conversación a nuestro agente.</p>
-                <ul class="wa-steps">
-                    <li><span class="num">1</span> Abre WhatsApp y busca <strong>Xemotional Forense</strong></li>
-                    <li><span class="num">2</span> Reenvía o graba cualquier nota de voz</li>
-                    <li><span class="num">3</span> Recibe tu informe PDF forense en minutos</li>
-                </ul>
-                <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="btn btn-wa" id="wa-section-btn">
-                    💬 Abrir WhatsApp Ahora
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero" id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-inner">
+        <div class="hero-content">
+            <div class="hero-eyebrow">Análisis Forense · Modelo MV9-F · IA Bioacústica</div>
+            <h1>Análisis Forense<br>de Voz<span class="dot">.</span><br>Precisión Inapelable<span class="dot">.</span></h1>
+            <p class="hero-desc">
+                Evaluamos los parámetros bioacústicos de la voz humana mediante inteligencia artificial forense de última generación. Obtenga un reporte técnico detallado de credibilidad, estrés cognitivo y estado emocional, de forma completamente confidencial y sin registros de datos.
+            </p>
+            <div class="hero-actions">
+                <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="btn btn-wa" id="hero-wa-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    Iniciar Consulta por WhatsApp
+                </a>
+                <a href="#metodologia" class="btn btn-ghost">
+                    Ver Metodología
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                 </a>
             </div>
+            <div class="hero-trust">
+                <div class="hero-trust-item">
+                    <svg class="ht-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    Cero retención de datos — procesamiento exclusivo en memoria volátil
+                </div>
+                <div class="hero-trust-item">
+                    <svg class="ht-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                    Canal cifrado de extremo a extremo · Cumplimiento estricto GDPR
+                </div>
+                <div class="hero-trust-item">
+                    <svg class="ht-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+                    Reporte técnico PDF disponible en menos de 10 minutos
+                </div>
+            </div>
         </div>
-    </section>
 
-    <!-- SECURITY -->
-    <section class="section security-section" id="seguridad">
-        <div class="section-hdr anim">
-            <div class="section-tag">🔒 Seguridad y Confidencialidad</div>
-            <h2>Tus datos están protegidos. Siempre.</h2>
-            <p>La confidencialidad no es una opción, es el pilar fundamental de Xemotional.</p>
-        </div>
-        <div class="security-grid">
-            <div class="sec-card anim">
-                <div class="sec-icon">🗑️</div>
-                <h3>Cero Retención de Datos</h3>
-                <p>Tu audio se procesa en memoria y se elimina automáticamente. No almacenamos grabaciones, transcripciones ni datos biométricos. Nunca.</p>
-            </div>
-            <div class="sec-card anim">
-                <div class="sec-icon">🔐</div>
-                <h3>Cifrado de Extremo a Extremo</h3>
-                <p>Todo el flujo de datos viaja por canales cifrados. Tu información jamás queda expuesta en tránsito ni en reposo en ningún servidor.</p>
-            </div>
-            <div class="sec-card anim">
-                <div class="sec-icon">👤</div>
-                <h3>Anonimato Total</h3>
-                <p>No recopilamos información personal. El análisis se realiza sin vincular resultados a identidades, garantizando privacidad absoluta.</p>
-            </div>
-            <div class="sec-card anim">
-                <div class="sec-icon">🚫</div>
-                <h3>Sin Acceso de Terceros</h3>
-                <p>Tus datos nunca se comparten, venden o exponen a terceros. El resultado es exclusivamente tuyo y solo tú puedes verlo.</p>
-            </div>
-            <div class="sec-card anim">
-                <div class="sec-icon">🏛️</div>
-                <h3>Cumplimiento Normativo</h3>
-                <p>Protocolos alineados con estándares internacionales de protección de datos, incluyendo principios GDPR y regulaciones locales.</p>
-            </div>
-            <div class="sec-card anim">
-                <div class="sec-icon">📋</div>
-                <h3>Auditoría Transparente</h3>
-                <p>Cada análisis genera un log de auditoría anónimo que verifica que los datos fueron eliminados correctamente tras cada sesión.</p>
+        <div class="hero-visual">
+            <div class="clinical-console">
+                <div class="console-header">
+                    <span class="console-title">XEMOTIONAL FORENSIC ANALYZER · MV9-F</span>
+                    <span class="console-status"><span class="status-dot"></span> PROCESANDO</span>
+                </div>
+                <div class="console-canvas-wrap">
+                    <canvas id="hero-canvas"></canvas>
+                </div>
+                <div class="console-metrics">
+                    <div class="c-metric">
+                        <div class="c-metric-lbl">Credibilidad</div>
+                        <div class="c-metric-val ok">87<span style="font-size:.85rem">%</span></div>
+                        <div class="c-metric-sub">Indicador: ALTO</div>
+                    </div>
+                    <div class="c-metric">
+                        <div class="c-metric-lbl">Estrés Vocal</div>
+                        <div class="c-metric-val blue">Bajo</div>
+                        <div class="c-metric-sub">F0: 186.4 Hz</div>
+                    </div>
+                    <div class="c-metric">
+                        <div class="c-metric-lbl">Métricas</div>
+                        <div class="c-metric-val">42+</div>
+                        <div class="c-metric-sub">Parámetros</div>
+                    </div>
+                </div>
+                <div class="console-footer">
+                    <span class="cf-label">REF: XEM-2026-04782 · CONFIDENCIAL</span>
+                    <span class="cf-status">▶ ANALIZANDO</span>
+                </div>
             </div>
         </div>
-        <div class="pledge anim">
-            <div class="pledge-shield">🛡️</div>
-            <div>
-                <h3>Nuestro Compromiso de Privacidad</h3>
-                <p>Diseñamos nuestra arquitectura con la premisa de que ningún dato debe sobrevivir al análisis. Tu voz entra, los insights salen, y el audio desaparece. <strong>Sin excepciones.</strong></p>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
 
-    <!-- USE CASES -->
-    <section class="section cases-section" id="casos">
-        <div class="section-hdr anim">
-            <div class="section-tag">💼 ¿Para quién es?</div>
-            <h2>Un servicio para cada necesidad</h2>
-            <p>Profesionales y personas que necesitan respuestas que la voz revela</p>
+<!-- ══════════════════════ TRUST BAR ══════════════════════ -->
+<div class="trust-bar">
+    <div class="trust-inner anim">
+        <div class="trust-item">
+            <div class="trust-val">1,000+</div>
+            <div class="trust-lbl">Peritajes Procesados</div>
         </div>
-        <div class="cases-grid">
-            <div class="case-card anim">
-                <div class="case-emoji">⚖️</div>
-                <div>
-                    <h3>Abogados y Legal</h3>
-                    <p>Evalúa la credibilidad de declaraciones, testimonios y entrevistas. Obtén información complementaria para fortalecer tus investigaciones legales.</p>
-                </div>
-            </div>
-            <div class="case-card anim">
-                <div class="case-emoji">🧠</div>
-                <div>
-                    <h3>Psicólogos y Terapeutas</h3>
-                    <p>Herramienta complementaria para la evaluación emocional. Detecta patrones de estrés, ansiedad y emociones no verbalizadas en sesiones de terapia.</p>
-                </div>
-            </div>
-            <div class="case-card anim">
-                <div class="case-emoji">💑</div>
-                <div>
-                    <h3>Relaciones Personales</h3>
-                    <p>¿Quieres saber si te están diciendo la verdad? Analiza audios de conversaciones personales con total confidencialidad y discreción.</p>
-                </div>
-            </div>
-            <div class="case-card anim">
-                <div class="case-emoji">👥</div>
-                <div>
-                    <h3>Amigos y Familia</h3>
-                    <p>Descubre lo que la voz revela en conversaciones cotidianas. Identifica emociones ocultas, estrés y patrones de credibilidad de forma segura.</p>
-                </div>
-            </div>
-            <div class="case-card anim">
-                <div class="case-emoji">🏢</div>
-                <div>
-                    <h3>Recursos Humanos</h3>
-                    <p>Insights adicionales en procesos de selección y evaluaciones internas. Complementa tu toma de decisiones con datos objetivos sobre candidatos.</p>
-                </div>
-            </div>
-            <div class="case-card anim">
-                <div class="case-emoji">📰</div>
-                <div>
-                    <h3>Periodismo e Investigación</h3>
-                    <p>Verifica fuentes y detecta inconsistencias en entrevistas. Una capa adicional de análisis para reportajes e investigaciones periodísticas.</p>
-                </div>
-            </div>
+        <div class="trust-item">
+            <div class="trust-val">42</div>
+            <div class="trust-lbl">Métricas Bioacústicas</div>
         </div>
-    </section>
+        <div class="trust-item">
+            <div class="trust-val">0%</div>
+            <div class="trust-lbl">Datos Almacenados</div>
+        </div>
+        <div class="trust-item">
+            <div class="trust-val">GDPR</div>
+            <div class="trust-lbl">Cumplimiento Certificado</div>
+        </div>
+    </div>
+</div>
 
-    <!-- TECHNOLOGY -->
-    <section class="section tech-section" id="tecnologia">
-        <div class="section-hdr anim">
-            <div class="section-tag">🔬 Tecnología de Última Generación</div>
-            <h2>¿Cómo funciona nuestro análisis?</h2>
-            <p>Utilizamos inteligencia artificial avanzada para descifrar lo que la voz realmente dice</p>
+<!-- ══════════════════════ HOW IT WORKS ══════════════════════ -->
+<section class="section" id="metodologia">
+    <div class="section-hdr anim">
+        <div class="section-eyebrow">Metodología</div>
+        <h2>Protocolo de análisis en tres fases</h2>
+        <p>Un proceso estructurado, seguro y completamente confidencial para obtener un reporte forense de precisión clínica.</p>
+    </div>
+    <div class="steps-grid">
+        <div class="step-card anim">
+            <div class="step-phase">FASE 01 · REMISIÓN</div>
+            <div class="step-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>Remisión Segura del Audio</h3>
+            <p>Reenvíe la nota de voz o archivo de audio a nuestro canal de WhatsApp. El canal opera con cifrado E2E. No es necesario registrarse ni proporcionar datos personales de ningún tipo.</p>
         </div>
-        <div class="tech-grid">
-            <div class="tech-card anim">
-                <div class="tech-icon">🧠</div>
-                <div>
-                    <h3>Inteligencia Artificial Avanzada</h3>
-                    <p>Nuestra IA detecta automáticamente contradicciones, señales de nerviosismo y patrones emocionales ocultos en la forma de hablar.</p>
-                </div>
+        <div class="step-card anim">
+            <div class="step-phase">FASE 02 · ANÁLISIS</div>
+            <div class="step-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             </div>
-            <div class="tech-card anim">
-                <div class="tech-icon">🔊</div>
-                <div>
-                    <h3>Análisis Profundo de la Voz</h3>
-                    <p>Medimos los cambios más sutiles en el tono, la velocidad y la estabilidad de la voz para detectar estrés, inseguridad o emociones ocultas.</p>
-                </div>
-            </div>
-            <div class="tech-card anim">
-                <div class="tech-icon">🎙️</div>
-                <div>
-                    <h3>Detección de Múltiples Voces</h3>
-                    <p>Nuestro sistema identifica automáticamente cada persona que habla y analiza por separado sus emociones y nivel de credibilidad.</p>
-                </div>
-            </div>
-            <div class="tech-card anim">
-                <div class="tech-icon">📊</div>
-                <div>
-                    <h3>Índice de Estrés y Credibilidad</h3>
-                    <p>Generamos un puntaje claro y fácil de entender que indica el nivel de estrés, confianza y credibilidad de cada persona en el audio.</p>
-                </div>
-            </div>
+            <h3>Extracción Bioacústica con IA</h3>
+            <p>El modelo MV9-F extrae más de 42 parámetros físicos del habla: frecuencia fundamental, jitter, shimmer, HNR, micro-temblor vocal, cadencia y coherencia cognitiva del hablante.</p>
         </div>
-    </section>
+        <div class="step-card anim">
+            <div class="step-phase">FASE 03 · ENTREGA</div>
+            <div class="step-icon-wrap">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+            </div>
+            <h3>Entrega del Reporte Forense PDF</h3>
+            <p>Reciba el informe técnico completo en su conversación privada. Incluye el veredicto, métricas detalladas y conclusiones del análisis. El audio es eliminado de forma inmediata e irreversible.</p>
+        </div>
+    </div>
+</section>
 
-    <!-- FAQ -->
-    <section class="section faq-section" id="faq">
-        <div class="section-hdr anim">
-            <div class="section-tag">❓ Preguntas Frecuentes</div>
-            <h2>Lo que necesitas saber</h2>
-            <p>Respuestas claras para que confíes en nuestro servicio</p>
-        </div>
-        <div class="faq-list">
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Mis audios quedan almacenados en algún servidor?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p><strong>No.</strong> Xemotional opera con una política de cero retención. Tu audio se procesa en memoria, se genera el reporte y el archivo se elimina automáticamente. No conservamos grabaciones, transcripciones ni ningún tipo de dato biométrico.</p></div>
-            </div>
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Quién puede ver mis resultados?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p><strong>Solo tú.</strong> El reporte se entrega exclusivamente en tu conversación privada de WhatsApp. Ningún tercero, incluyendo Xemotional, tiene acceso a los resultados de tu análisis.</p></div>
-            </div>
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Qué tan preciso es el análisis?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Nuestro sistema analiza más de 42 características de la voz utilizando inteligencia artificial de última generación. Los resultados son una herramienta complementaria de apoyo profesional.</p></div>
-            </div>
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Puedo analizar un audio que me reenviaron?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p><strong>Sí.</strong> Puedes reenviar cualquier nota de voz o archivo de audio desde cualquier conversación de WhatsApp. Simplemente reenvíalo a nuestro agente y recibirás el informe forense.</p></div>
-            </div>
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Qué formatos de audio aceptan?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Aceptamos cualquier formato compatible con WhatsApp: notas de voz (.ogg), MP3, WAV, M4A y más. Simplemente reenvía o graba un audio en la conversación.</p></div>
-            </div>
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Es legal utilizar este servicio?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Xemotional es una herramienta de análisis tecnológico. Los resultados son información complementaria y no sustituyen opiniones profesionales ni pruebas legales formales. Es responsabilidad del usuario cumplir con las leyes locales respecto al uso de grabaciones.</p></div>
-            </div>
-            <div class="faq-item anim">
-                <button class="faq-question" onclick="toggleFaq(this)">¿Cuánto cuesta analizar un audio?<span class="faq-chevron">▼</span></button>
-                <div class="faq-answer"><p>Escríbenos por WhatsApp o correo para conocer nuestros planes. Ofrecemos opciones flexibles: pago por análisis individual o paquetes con segundos de audio prepagados.</p></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section cta-section">
-        <div class="cta-box anim">
-            <h2>¿Listo para descubrir<br>lo que la voz revela?</h2>
-            <p>Envía tu primer audio ahora. El proceso es rápido, confidencial y los datos se eliminan automáticamente.</p>
-            <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="btn btn-wa" id="cta-wa-btn">
-                💬 Enviar Audio por WhatsApp
+<!-- ══════════════════════ REPORT MOCKUP ══════════════════════ -->
+<section class="section section--grey" id="reporte">
+    <div class="report-layout">
+        <div class="anim">
+            <div class="report-eyebrow">Evidencia Técnica</div>
+            <h2>Un reporte forense de estándares científicos</h2>
+            <p class="report-content p">Cada análisis genera un informe PDF estructurado con la metodología aplicada, los parámetros medidos y un veredicto fundamentado en evidencia bioacústica objetiva y replicable.</p>
+            <ul class="report-features">
+                <li><span class="rf-dot"></span>Veredicto de credibilidad con índice de confianza porcentual</li>
+                <li><span class="rf-dot"></span>Tabla de 42 métricas bioacústicas detalladas y clasificadas</li>
+                <li><span class="rf-dot"></span>Espectrograma de frecuencias e historial de F0 del hablante</li>
+                <li><span class="rf-dot"></span>Análisis cuantitativo de estrés cognitivo y micro-temblor vocal</li>
+                <li><span class="rf-dot"></span>Identificación y diarización de hablantes múltiples (si aplica)</li>
+                <li><span class="rf-dot"></span>Número de referencia único para seguimiento confidencial del caso</li>
+            </ul>
+            <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20solicitar%20un%20análisis%20forense" target="_blank" class="btn btn-primary" id="report-wa-btn">
+                Solicitar Análisis Ahora
             </a>
-            <div class="cta-sub">
-                o escríbenos a <a href="mailto:info@xemotional.com" style="color:var(--primary);font-weight:600">info@xemotional.com</a>
-            </div>
         </div>
-    </section>
 
-    <!-- FOOTER -->
-    <footer class="footer">
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <div class="nav-logo" style="color:#fff">
-                    <img src="LogoWhap.png" alt="Logo" class="nav-logo-icon" style="background:transparent; padding:0; object-fit: contain;">
-                    <span>Xemotional</span>
+        <div class="report-mock anim">
+            <div class="rm-header">
+                <div class="rm-logo">XEMOTIONAL · REPORTE FORENSE</div>
+                <div class="rm-ref">REF: XEM-2026-04782</div>
+            </div>
+            <div class="rm-classification">
+                <span class="rm-badge">CONFIDENCIAL</span>
+                <span class="rm-badge-label">Análisis Bioacústico · Modelo MV9-F</span>
+            </div>
+            <div class="rm-body">
+                <div class="rm-field">
+                    <span class="rm-field-lbl">Fecha de Emisión</span>
+                    <span class="rm-field-val">04/07/2026 · 22:46 UTC</span>
                 </div>
-                <p>Análisis forense de voz con inteligencia artificial. Servicio profesional, seguro y 100% confidencial.</p>
-            </div>
-            <div class="footer-col">
-                <h4>Servicio</h4>
-                <a href="#whatsapp">Cómo Funciona</a>
-                <a href="#tecnologia">Tecnología</a>
-                <a href="#casos">Casos de Uso</a>
-                <a href="#faq">FAQ</a>
-            </div>
-            <div class="footer-col">
-                <h4>Seguridad</h4>
-                <a href="#seguridad">Política de Datos</a>
-                <a href="#seguridad">Cifrado E2E</a>
-                <a href="#seguridad">Cumplimiento</a>
-            </div>
-            <div class="footer-col">
-                <h4>Contacto</h4>
-                <a href="https://wa.me/50663823708" target="_blank">WhatsApp</a>
-                <a href="mailto:info@xemotional.com">info@xemotional.com</a>
-                <a href="https://xemotional.com" target="_blank">xemotional.com</a>
+                <div class="rm-field">
+                    <span class="rm-field-lbl">Duración del Audio</span>
+                    <span class="rm-field-val">0:47 seg · formato OGG</span>
+                </div>
+                <div class="rm-field">
+                    <span class="rm-field-lbl">Hablantes Detectados</span>
+                    <span class="rm-field-val">1 hablante identificado</span>
+                </div>
+                <div class="rm-field">
+                    <span class="rm-field-lbl">Calidad de Señal</span>
+                    <span class="rm-field-val">Alta — SNR: 28.4 dB</span>
+                </div>
+                <div class="rm-metrics">
+                    <div class="rm-metric-card">
+                        <div class="rmc-lbl">Credibilidad</div>
+                        <div class="rmc-val" style="color:#16A34A">87%</div>
+                        <div class="rmc-bar"><div class="rmc-fill" style="width:87%;background:#16A34A"></div></div>
+                    </div>
+                    <div class="rm-metric-card">
+                        <div class="rmc-lbl">Estrés Vocal</div>
+                        <div class="rmc-val" style="color:var(--steel)">Bajo</div>
+                        <div class="rmc-bar"><div class="rmc-fill" style="width:22%;background:var(--steel)"></div></div>
+                    </div>
+                    <div class="rm-metric-card">
+                        <div class="rmc-lbl">Jitter</div>
+                        <div class="rmc-val">0.8%</div>
+                        <div class="rmc-bar"><div class="rmc-fill" style="width:8%;background:var(--navy)"></div></div>
+                    </div>
+                    <div class="rm-metric-card">
+                        <div class="rmc-lbl">HNR</div>
+                        <div class="rmc-val">22.3 dB</div>
+                        <div class="rmc-bar"><div class="rmc-fill" style="width:75%;background:var(--navy)"></div></div>
+                    </div>
+                </div>
+                <div class="rm-verdict">
+                    <div class="rv-label">Veredicto Forense Final</div>
+                    <div class="rv-value">HONESTO</div>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <span>© 2026 Xemotional. Todos los derechos reservados.</span>
-            <div class="footer-legal">
-                <a href="#">Términos de Servicio</a>
-                <a href="#">Política de Privacidad</a>
+    </div>
+</section>
+
+<!-- ══════════════════════ SCIENCE ══════════════════════ -->
+<section class="section" id="ciencia">
+    <div class="section-hdr anim">
+        <div class="section-eyebrow">Ciencia &amp; Tecnología</div>
+        <h2>Cuatro pilares del análisis bioacústico forense</h2>
+        <p>La metodología se sustenta en principios de fonoaudiología clínica, neurolingüística y procesamiento de señales de alta precisión.</p>
+    </div>
+    <div class="science-grid">
+        <div class="sci-card anim">
+            <div class="sci-mod">MÓDULO 01 · ESTRÉS COGNITIVO</div>
+            <h3>Detección de Estrés Autónomo Vocal</h3>
+            <p>Identifica variaciones involuntarias en la frecuencia fundamental (F0) provocadas por el sistema nervioso autónomo bajo condiciones de carga cognitiva elevada, tensión emocional o supresión de respuestas.</p>
+            <div class="sci-tags">
+                <span class="sci-tag">F0 Tracking</span>
+                <span class="sci-tag">Jitter Analysis</span>
+                <span class="sci-tag">Shimmer</span>
+                <span class="sci-tag">Micro-tremor</span>
             </div>
         </div>
-    </footer>
+        <div class="sci-card anim">
+            <div class="sci-mod">MÓDULO 02 · BIOACÚSTICA</div>
+            <h3>Filtros de Señal y Separación de Ruido</h3>
+            <p>Aísla matemáticamente el componente de voz del ruido ambiental de fondo utilizando filtros adaptativos de paso de banda, garantizando un análisis puro de los parámetros vocales del hablante objetivo.</p>
+            <div class="sci-tags">
+                <span class="sci-tag">SNR Filter</span>
+                <span class="sci-tag">HNR Analysis</span>
+                <span class="sci-tag">Spectral Purity</span>
+            </div>
+        </div>
+        <div class="sci-card anim">
+            <div class="sci-mod">MÓDULO 03 · DIARIZACIÓN</div>
+            <h3>Identificación y Separación de Hablantes</h3>
+            <p>Detecta automáticamente la presencia de múltiples oradores en un mismo archivo de audio, segmentando el análisis por hablante individual y evaluando los indicadores de cada uno de forma independiente.</p>
+            <div class="sci-tags">
+                <span class="sci-tag">Speaker Diarization</span>
+                <span class="sci-tag">Voice Fingerprint</span>
+                <span class="sci-tag">Segmentation</span>
+            </div>
+        </div>
+        <div class="sci-card anim">
+            <div class="sci-mod">MÓDULO 04 · REPORTE</div>
+            <h3>Generación Estructurada de Evidencia</h3>
+            <p>Procesa más de 42 características físicas del habla para generar un veredicto forense fundamentado, acompañado de un reporte PDF estructurado con métricas, gráficos espectrales y conclusiones técnicas.</p>
+            <div class="sci-tags">
+                <span class="sci-tag">42+ Metrics</span>
+                <span class="sci-tag">PDF Forense</span>
+                <span class="sci-tag">AI Verdict</span>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <script>
-        // WAVEFORM
-        (function(){
-            const c=document.getElementById('waveform');
-            for(let i=0;i<40;i++){
-                const b=document.createElement('div');
-                b.classList.add('wave-bar');
-                b.style.animationDelay=`${i*.06}s`;
-                b.style.animationDuration=`${1.2+Math.random()*.8}s`;
-                c.appendChild(b);
-            }
-        })();
+<!-- ══════════════════════ USE CASES ══════════════════════ -->
+<section class="section section--grey" id="aplicaciones">
+    <div class="section-hdr anim">
+        <div class="section-eyebrow">Áreas de Aplicación</div>
+        <h2>Diseñado para contextos de alta exigencia</h2>
+        <p>El análisis forense de voz se aplica en escenarios donde la credibilidad tiene implicaciones jurídicas, organizacionales o personales de alta relevancia.</p>
+    </div>
+    <div class="cases-grid">
+        <div class="case-card anim">
+            <div class="case-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+            </div>
+            <div>
+                <h3>Litigación y Peritaje Judicial</h3>
+                <p>Evaluación técnica preliminar de la credibilidad de testimonios, declaraciones grabadas y audios de evidencia para uso en procesos legales y arbitrajes.</p>
+                <ul class="case-list">
+                    <li>Análisis de declaraciones de testigos</li>
+                    <li>Evaluación de interrogatorios grabados</li>
+                    <li>Soporte técnico a peritaje oficial</li>
+                </ul>
+            </div>
+        </div>
+        <div class="case-card anim">
+            <div class="case-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+                <h3>Auditoría de Recursos Humanos</h3>
+                <p>Indicadores objetivos de estrés, congruencia y estado emocional en procesos de entrevista, evaluación de candidatos a roles de confianza e investigaciones internas.</p>
+                <ul class="case-list">
+                    <li>Roles de alta confianza corporativa</li>
+                    <li>Investigaciones internas confidenciales</li>
+                    <li>Evaluación de congruencia declarativa</li>
+                </ul>
+            </div>
+        </div>
+        <div class="case-card anim">
+            <div class="case-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div>
+                <h3>Investigación Privada y Consultoría</h3>
+                <p>Herramienta de apoyo para investigadores, detectives privados y consultores que requieren un análisis discreto de la veracidad de comunicaciones de audio sensibles.</p>
+                <ul class="case-list">
+                    <li>Verificación en disputas y litigios</li>
+                    <li>Análisis en due diligence corporativo</li>
+                    <li>Apoyo a investigaciones internas</li>
+                </ul>
+            </div>
+        </div>
+        <div class="case-card anim">
+            <div class="case-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <div>
+                <h3>Psicología Clínica e Institucional</h3>
+                <p>Métricas cuantitativas de estrés autónomo, micro-temblor vocal y carga cognitiva como apoyo objetivo en evaluaciones psicológicas formales y seguimiento clínico.</p>
+                <ul class="case-list">
+                    <li>Indicadores objetivos de estrés vocal</li>
+                    <li>Seguimiento de estados emocionales</li>
+                    <li>Datos de apoyo para informes clínicos</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
 
-        // NAV SCROLL
-        const nav=document.getElementById('nav');
-        window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>50)},{passive:true});
+<!-- ══════════════════════ SECURITY ══════════════════════ -->
+<section class="section" id="seguridad">
+    <div class="section-hdr anim">
+        <div class="section-eyebrow">Seguridad &amp; Cumplimiento</div>
+        <h2>Garantía de Privacidad Absoluta</h2>
+        <p>La confidencialidad e inviolabilidad de los datos de voz es el pilar fundamental sobre el que operamos. Sin excepciones.</p>
+    </div>
+    <div class="security-grid">
+        <div class="sec-card anim">
+            <div class="sec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+            </div>
+            <h3>Cero Retención de Datos</h3>
+            <p>Los audios se procesan exclusivamente en memoria volátil. Al generar el reporte, el archivo se elimina de forma automática e irreversible. No conservamos grabaciones ni datos biométricos.</p>
+        </div>
+        <div class="sec-card anim">
+            <div class="sec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3>Cifrado de Extremo a Extremo</h3>
+            <p>Todo el flujo de datos opera bajo cifrado E2E. La información nunca queda expuesta en tránsito ni en reposo. El canal de WhatsApp añade una capa adicional de cifrado de grado militar.</p>
+        </div>
+        <div class="sec-card anim">
+            <div class="sec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3>Anonimato Total del Cliente</h3>
+            <p>No recopilamos información personal identificable. El análisis se realiza sin vincular los resultados a ninguna identidad, garantizando privacidad absoluta para todas las partes.</p>
+        </div>
+        <div class="sec-card anim">
+            <div class="sec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            </div>
+            <h3>Sin Acceso de Terceros</h3>
+            <p>Los datos de voz y los resultados del análisis nunca son compartidos, vendidos ni expuestos a terceros bajo ninguna circunstancia. El reporte es de uso exclusivo del solicitante.</p>
+        </div>
+        <div class="sec-card anim">
+            <div class="sec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Cumplimiento GDPR Estricto</h3>
+            <p>Nuestros protocolos de borrado y no-persistencia están diseñados para cumplir con el Reglamento General de Protección de Datos de la Unión Europea y regulaciones equivalentes.</p>
+        </div>
+        <div class="sec-card anim">
+            <div class="sec-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <h3>Log de Auditoría Anónimo</h3>
+            <p>Cada sesión genera un registro que confirma criptográficamente que los datos de audio fueron eliminados correctamente, sin incluir contenido ni información de identificación.</p>
+        </div>
+    </div>
+    <div class="pledge-bar anim">
+        <div class="pledge-icon">🛡️</div>
+        <div>
+            <h3>Compromiso de Privacidad Garantizada</h3>
+            <p>Ningún dato sobrevive a la sesión de análisis. La voz se procesa, se extraen las métricas y el archivo es destruido de manera automática e irreversible. <strong style="color:rgba(255,255,255,0.7)">Sin excepciones ni almacenamiento en caché.</strong></p>
+        </div>
+    </div>
+</section>
 
-        // MOBILE MENU
-        const mobileBtn=document.getElementById('mobile-menu-btn');
-        const navLinks=document.getElementById('nav-links');
-        mobileBtn.addEventListener('click',()=>{
-            navLinks.classList.toggle('mobile-open');
-            mobileBtn.textContent=navLinks.classList.contains('mobile-open')?'✕':'☰';
+<!-- ══════════════════════ FAQ ══════════════════════ -->
+<section class="section section--grey" id="faq">
+    <div class="section-hdr anim">
+        <div class="section-eyebrow">Preguntas Frecuentes</div>
+        <h2>Información técnica y operativa</h2>
+        <p>Respuestas detalladas a las consultas más comunes sobre nuestro servicio de análisis forense de voz.</p>
+    </div>
+    <div class="faq-list">
+        <div class="faq-item anim">
+            <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Mis audios quedan almacenados en algún servidor?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p><strong>No.</strong> Xemotional opera con una política estricta de cero retención de datos. Su audio se procesa únicamente en memoria volátil (RAM). Al generar el reporte, el archivo se elimina de forma automática del sistema. No conservamos grabaciones, transcripciones ni ningún tipo de dato biométrico en ningún almacenamiento persistente.</p></div>
+        </div>
+        <div class="faq-item anim">
+            <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Qué formatos de audio son compatibles?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>Aceptamos todos los formatos de audio compatibles con WhatsApp: notas de voz nativas (<code>.ogg</code>), archivos <code>MP3</code>, <code>WAV</code>, <code>M4A</code>, <code>AAC</code> y <code>FLAC</code>. La calidad mínima recomendada es de 8 kHz para garantizar resultados óptimos en el análisis bioacústico.</p></div>
+        </div>
+        <div class="faq-item anim">
+            <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Qué tan preciso es el análisis forense?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>El sistema analiza más de 42 características físicas del habla: micro-temblores subglóticos (jitter), variaciones de amplitud (shimmer), relación armónico-ruido (HNR), frecuencia fundamental (F0) y patrones de cadencia, entre otras. Los indicadores son objetivos y basados en evidencia bioacústica. El reporte incluye el índice de confianza para cada muestra procesada.</p></div>
+        </div>
+        <div class="faq-item anim">
+            <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Puedo analizar una nota de voz que me reenviaron?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p><strong>Sí.</strong> Puede reenviar cualquier nota de voz o archivo de audio desde cualquier conversación de WhatsApp directamente a nuestro número. El sistema procesa el audio independientemente de su origen, siempre que la calidad de la señal sea suficiente para el análisis bioacústico.</p></div>
+        </div>
+        <div class="faq-item anim">
+            <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Puede analizar audios con múltiples hablantes?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p><strong>Sí.</strong> El módulo de diarización del modelo MV9-F detecta automáticamente la presencia de múltiples oradores y genera un análisis forense independiente para cada uno, identificándolos por segmentos de tiempo y características vocales únicas.</p></div>
+        </div>
+        <div class="faq-item anim">
+            <button class="faq-q" onclick="toggleFaq(this)">
+                ¿Cómo solicitar el servicio y cuánto cuesta?
+                <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-a"><p>El servicio se gestiona a través de una consulta confidencial por WhatsApp o correo electrónico. Un especialista evaluará los requerimientos específicos de su caso y el tipo de análisis necesario, para proporcionarle un presupuesto ajustado. Esto nos permite garantizar la calidad y adecuación del análisis a su contexto particular.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ══════════════════════ CTA ══════════════════════ -->
+<section class="section">
+    <div class="cta-box anim">
+        <div class="cta-tag">Iniciar Análisis Forense</div>
+        <h2>¿Necesita saber<br>lo que revela la voz?</h2>
+        <p>Envíe su audio de forma confidencial y reciba un reporte forense completo basado en evidencia bioacústica objetiva. Sin registro. Sin datos almacenados. Sin excepciones.</p>
+        <div class="cta-actions">
+            <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20iniciar%20una%20consulta%20forense" target="_blank" class="btn btn-white" id="cta-wa-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                Consulta por WhatsApp
+            </a>
+            <a href="mailto:info@xemotional.com" class="btn btn-ghost-white">
+                info@xemotional.com
+            </a>
+        </div>
+        <p class="cta-note">Análisis entregado en menos de 10 minutos · Datos eliminados automáticamente · Sin registro requerido</p>
+    </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="footer-brand-logo">
+                <img src="LogoWhap.png" alt="Logo Xemotional">
+                Xemotional
+            </div>
+            <p>Análisis forense de voz con inteligencia artificial. Servicio profesional, seguro y 100% confidencial para litigación, RRHH, peritaje e investigación privada.</p>
+        </div>
+        <div class="footer-col">
+            <h4>Servicio</h4>
+            <a href="#metodologia">Metodología</a>
+            <a href="#ciencia">Ciencia y Tecnología</a>
+            <a href="#aplicaciones">Aplicaciones</a>
+            <a href="#reporte">Reporte Forense</a>
+        </div>
+        <div class="footer-col">
+            <h4>Seguridad</h4>
+            <a href="#seguridad">Política de Datos</a>
+            <a href="#seguridad">Cifrado E2E</a>
+            <a href="#seguridad">Cumplimiento GDPR</a>
+            <a href="#faq">Preguntas Frecuentes</a>
+        </div>
+        <div class="footer-col">
+            <h4>Contacto</h4>
+            <a href="https://wa.me/50663823708" target="_blank">WhatsApp Forense</a>
+            <a href="mailto:info@xemotional.com">info@xemotional.com</a>
+            <a href="https://xemotional.com">xemotional.com</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Xemotional. Todos los derechos reservados.</span>
+        <div class="footer-legal">
+            <a href="#">Términos de Servicio</a>
+            <a href="#">Política de Privacidad</a>
+        </div>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="floating-wa" id="floating-wa-btn">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+    Analizar Audio
+</a>
+
+<script>
+    // ── NAV SCROLL ──
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+
+    // ── MOBILE MENU ──
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const navLinks  = document.getElementById('nav-links');
+    mobileBtn.addEventListener('click', () => navLinks.classList.toggle('mobile-open'));
+    navLinks.querySelectorAll('a').forEach(l => l.addEventListener('click', () => navLinks.classList.remove('mobile-open')));
+
+    // ── SMOOTH SCROLL ──
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
         });
-        navLinks.querySelectorAll('a').forEach(l=>l.addEventListener('click',()=>{
-            navLinks.classList.remove('mobile-open');mobileBtn.textContent='☰';
-        }));
+    });
 
-        // FAQ
-        function toggleFaq(btn){
-            const item=btn.parentElement;
-            const open=item.classList.contains('open');
-            document.querySelectorAll('.faq-item').forEach(e=>e.classList.remove('open'));
-            if(!open)item.classList.add('open');
+    // ── FAQ ──
+    function toggleFaq(btn) {
+        const item = btn.parentElement;
+        const open = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(e => e.classList.remove('open'));
+        if (!open) item.classList.add('open');
+    }
+
+    // ── SCROLL ANIMATIONS ──
+    const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.anim').forEach(el => obs.observe(el));
+
+    // ── META PIXEL — WhatsApp Click Tracking ──
+    (function() {
+        ['hero-wa-btn','report-wa-btn','cta-wa-btn','nav-cta-btn'].forEach(function(id) {
+            var btn = document.getElementById(id);
+            if (btn) btn.addEventListener('click', function() {
+                if (typeof fbq === 'function') fbq('track', 'Lead', {
+                    content_name: 'Consulta WhatsApp',
+                    content_category: 'Análisis Forense de Voz',
+                    value: 0, currency: 'USD'
+                });
+            });
+        });
+        var fw = document.getElementById('floating-wa-btn');
+        if (fw) fw.addEventListener('click', function() {
+            if (typeof fbq === 'function') fbq('track', 'Lead', {
+                content_name: 'Consulta WhatsApp (Floating)',
+                content_category: 'Análisis Forense de Voz',
+                value: 0, currency: 'USD'
+            });
+        });
+    })();
+
+    // ════════════════════════════════════════
+    //  CLINICAL OSCILLOSCOPE CANVAS
+    // ════════════════════════════════════════
+    (function() {
+        const canvas = document.getElementById('hero-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let W, H, raf, time = 0;
+
+        // Pre-generated noise for stable jitter
+        const NOISE = new Float32Array(2048);
+        for (let i = 0; i < 2048; i++) NOISE[i] = (Math.random() - 0.5) * 3.5;
+
+        function resize() {
+            const wrap = canvas.parentElement;
+            W = canvas.width  = wrap.clientWidth;
+            H = canvas.height = 160;
         }
 
-        // SCROLL ANIMATIONS
-        const obs=new IntersectionObserver(entries=>{
-            entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
-        },{threshold:.12,rootMargin:'0px 0px -40px 0px'});
-        document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
-
-        // SMOOTH SCROLL
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{
-            a.addEventListener('click',function(e){
-                const t=document.querySelector(this.getAttribute('href'));
-                if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth',block:'start'})}
-            });
-        });
-
-        
-        // META PIXEL — Tracking eventos clave de conversión
-        // Dispara Lead cuando el usuario hace click en cualquier botón de WhatsApp
-        (function(){
-            var waButtons = ['hero-wa-btn', 'wa-section-btn', 'cta-wa-btn'];
-            waButtons.forEach(function(id){
-                var btn = document.getElementById(id);
-                if(btn){
-                    btn.addEventListener('click', function(){
-                        if(typeof fbq === 'function'){
-                            fbq('track', 'Lead', {
-                                content_name: 'Consulta WhatsApp',
-                                content_category: 'Análisis Forense de Voz',
-                                value: 0,
-                                currency: 'USD'
-                            });
-                        }
-                    });
-                }
-            });
-            var floatingWa = document.querySelector('.floating-wa');
-            if(floatingWa){
-                floatingWa.addEventListener('click', function(){
-                    if(typeof fbq === 'function'){
-                        fbq('track', 'Lead', {
-                            content_name: 'Consulta WhatsApp (Floating)',
-                            content_category: 'Análisis Forense de Voz',
-                            value: 0,
-                            currency: 'USD'
-                        });
-                    }
-                });
+        function drawGrid() {
+            const cols = 10, rows = 5;
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(176,195,218,0.4)';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= cols; i++) {
+                const x = (i / cols) * W;
+                ctx.moveTo(x, 0); ctx.lineTo(x, H);
             }
-        })();
-
-        // ═══════════════════════════════════════
-        // VOICE DNA HELIX — Forensic AI Canvas
-        // ═══════════════════════════════════════
-        (function(){
-            const canvas=document.getElementById('hero-canvas');
-            if(!canvas)return;
-            const ctx=canvas.getContext('2d');
-            let W, H, raf, time = 0;
-
-            function resize(){
-                const hero=document.getElementById('hero');
-                W = canvas.width = hero.offsetWidth;
-                H = canvas.height = hero.offsetHeight;
+            for (let j = 0; j <= rows; j++) {
+                const y = (j / rows) * H;
+                ctx.moveTo(0, y); ctx.lineTo(W, y);
             }
+            ctx.stroke();
+            // Baseline
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(79,70,229,0.12)';
+            ctx.lineWidth = 1;
+            ctx.moveTo(0, H / 2); ctx.lineTo(W, H / 2);
+            ctx.stroke();
+        }
 
-            // ── Simulated live audio data ──
-            const BANDS = 64;
-            let audioData = new Float32Array(BANDS);
-            function tickAudio(){
-                for(let i=0;i<BANDS;i++){
-                    let t = audioData[i];
-                    let spike = Math.random()<0.06 ? 0.7+Math.random()*0.3 : 0;
-                    t += (spike - t) * 0.18;
-                    t *= 0.92;
-                    audioData[i] = t;
-                }
+        function drawWave() {
+            const cy = H / 2;
+            const amp = 44;
+
+            // Secondary trace
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(99,102,241,0.22)';
+            ctx.lineWidth = 1;
+            for (let x = 0; x <= W; x += 2) {
+                const t = (x / W) * Math.PI * 7;
+                const y = cy + Math.sin(t * 1.3 + time * 0.022) * (amp * 0.35)
+                             + Math.sin(t * 3.1 + time * 0.015) * (amp * 0.15);
+                x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
             }
+            ctx.stroke();
 
-            // ── Floating forensic labels ──
-            const labels = [
-                'Credibilidad 87 %','Estrés: Bajo','Emoción: Neutral','Frecuencia: 220 Hz',
-                'Tono: Estable','42 métricas','Veredicto: HONESTO','Micro-temblor: 0.3 %',
-                'Pitch: Normal','Cadencia: Fluida','Confianza: Alta','Hesitación: Mínima',
-                'Jitter: 0.8 %','Shimmer: 1.2 dB','HNR: 22 dB','Segmentos: 14'
+            // Primary voice waveform
+            ctx.beginPath();
+            ctx.strokeStyle = '#4F46E5';
+            ctx.lineWidth = 1.6;
+            for (let x = 0; x <= W; x++) {
+                const t = (x / W) * Math.PI * 6;
+                const ni = Math.floor(x + time * 0.8) & 2047;
+                const voice = Math.sin(t + time * 0.022) * amp
+                            + Math.sin(t * 2.3 + time * 0.016) * (amp * 0.28)
+                            + Math.sin(t * 4.7 + time * 0.01) * (amp * 0.12)
+                            + NOISE[ni];
+                const y = cy + voice;
+                x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+
+            // Scan cursor
+            const scanX = (time * 1.2) % W;
+            ctx.save();
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(79,70,229,0.45)';
+            ctx.lineWidth = 1;
+            ctx.setLineDash([4, 5]);
+            ctx.moveTo(scanX, 4); ctx.lineTo(scanX, H - 4);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.restore();
+        }
+
+        function drawAnnotations() {
+            const anns = [
+                { x: 0.1,  text: 'F0: 186.4 Hz' },
+                { x: 0.42, text: 'Jitter: 0.8%' },
+                { x: 0.72, text: 'HNR: 22.3 dB' },
             ];
-            let floatingLabels = [];
-            function spawnLabel(){
-                if(floatingLabels.length > 6) return;
-                const side = Math.random() > 0.5;
-                floatingLabels.push({
-                    text: labels[Math.floor(Math.random()*labels.length)],
-                    x: side ? W*0.05 + Math.random()*W*0.25 : W*0.7 + Math.random()*W*0.25,
-                    y: H*0.15 + Math.random()*H*0.7,
-                    life: 0, maxLife: 180 + Math.random()*120,
-                    vy: -0.15 - Math.random()*0.3,
-                    size: 11 + Math.random()*3
-                });
-            }
-            function drawLabels(){
-                floatingLabels.forEach(l => {
-                    l.life++;
-                    l.y += l.vy;
-                    let progress = l.life / l.maxLife;
-                    let alpha = progress < 0.15 ? progress/0.15 : progress > 0.8 ? (1-progress)/0.2 : 1;
-                    alpha *= 0.45;
-                    ctx.font = `600 ${l.size}px 'Inter', monospace`;
-                    ctx.fillStyle = `rgba(0,120,212,${alpha})`;
-                    ctx.fillText(l.text, l.x, l.y);
-                });
-                floatingLabels = floatingLabels.filter(l => l.life < l.maxLife);
-            }
+            ctx.font = '500 9.5px Inter, system-ui, monospace';
+            anns.forEach(a => {
+                ctx.fillStyle = 'rgba(71,85,105,0.6)';
+                ctx.fillText(a.text, a.x * W, 13);
+            });
+        }
 
-            // ── 3D Voice DNA Helix ──
-            const HELIX_NODES = 60;
-            const HELIX_RADIUS = 110;
-            const HELIX_LENGTH = 500;
-            const HELIX_SPEED = 0.012;
+        function animate() {
+            ctx.clearRect(0, 0, W, H);
+            ctx.fillStyle = '#F8FAFC';
+            ctx.fillRect(0, 0, W, H);
+            drawGrid();
+            drawWave();
+            drawAnnotations();
+            time++;
+            raf = requestAnimationFrame(animate);
+        }
 
-            function drawHelix(cx, cy){
-                ctx.save();
-                // Draw two strands
-                for(let strand=0; strand<2; strand++){
-                    const offset = strand * Math.PI;
-                    let prev = null;
-                    for(let i=0; i<HELIX_NODES; i++){
-                        const t = i / HELIX_NODES;
-                        const angle = t * Math.PI * 4 + time * HELIX_SPEED + offset;
-                        const yPos = cy - HELIX_LENGTH/2 + t * HELIX_LENGTH;
-                        
-                        // 3D projection
-                        const z = Math.cos(angle);
-                        const xOff = Math.sin(angle) * HELIX_RADIUS;
-                        const depth = (z + 1) / 2; // 0..1
-                        const px = cx + xOff;
-                        const py = yPos;
+        window.addEventListener('resize', resize, { passive: true });
+        resize();
+        animate();
 
-                        // Audio reactivity on this node
-                        const band = Math.floor(t * BANDS);
-                        const energy = audioData[band] || 0;
+        // Pause when hero is offscreen
+        const heroEl = document.getElementById('hero');
+        if (heroEl) {
+            new IntersectionObserver(entries => {
+                if (entries[0].isIntersecting) { if (!raf) animate(); }
+                else { cancelAnimationFrame(raf); raf = null; }
+            }, { threshold: 0 }).observe(heroEl);
+        }
+    })();
+</script>
 
-                        // Node size & alpha based on depth
-                        const baseSize = 3 + depth * 4 + energy * 12;
-                        const alpha = 0.15 + depth * 0.6 + energy * 0.5;
-
-                        // Color: cycle between blue → cyan → green based on energy
-                        const hue = 200 - energy * 80;
-
-                        // Glow ring
-                        ctx.beginPath();
-                        ctx.arc(px, py, baseSize + 4, 0, Math.PI*2);
-                        ctx.fillStyle = `hsla(${hue}, 90%, 60%, ${alpha * 0.15})`;
-                        ctx.fill();
-
-                        // Core node
-                        ctx.beginPath();
-                        ctx.arc(px, py, baseSize, 0, Math.PI*2);
-                        ctx.fillStyle = `hsla(${hue}, 85%, 55%, ${alpha})`;
-                        ctx.fill();
-
-                        // Connection line between strands (rungs of the helix)
-                        if(strand === 0 && i % 4 === 0){
-                            const angle2 = t * Math.PI * 4 + time * HELIX_SPEED + Math.PI;
-                            const xOff2 = Math.sin(angle2) * HELIX_RADIUS;
-                            const z2 = Math.cos(angle2);
-                            const depth2 = (z2+1)/2;
-                            const avgDepth = (depth + depth2)/2;
-                            ctx.beginPath();
-                            ctx.moveTo(px, py);
-                            ctx.lineTo(cx + xOff2, py);
-                            ctx.strokeStyle = `rgba(0,164,239,${avgDepth * 0.18 + energy*0.3})`;
-                            ctx.lineWidth = 1 + energy * 3;
-                            ctx.stroke();
-                        }
-
-                        // Strand backbone line
-                        if(prev){
-                            ctx.beginPath();
-                            ctx.moveTo(prev.x, prev.y);
-                            ctx.lineTo(px, py);
-                            ctx.strokeStyle = `hsla(${hue}, 80%, 50%, ${alpha * 0.4})`;
-                            ctx.lineWidth = 1.5 + depth;
-                            ctx.stroke();
-                        }
-                        prev = {x: px, y: py};
-                    }
-                }
-                ctx.restore();
-            }
-
-            // ── Orbiting ring particles ──
-            const ORBIT_COUNT = 50;
-            let orbits = [];
-            function initOrbits(){
-                orbits = [];
-                for(let i=0;i<ORBIT_COUNT;i++){
-                    orbits.push({
-                        angle: Math.random()*Math.PI*2,
-                        radius: 160 + Math.random()*120,
-                        speed: 0.003 + Math.random()*0.008,
-                        size: 1.5 + Math.random()*2,
-                        elevation: (Math.random()-0.5)*HELIX_LENGTH*0.8,
-                        hue: Math.random() > 0.7 ? 140 : 200 + Math.random()*20
-                    });
-                }
-            }
-            initOrbits();
-
-            function drawOrbits(cx, cy){
-                orbits.forEach(o => {
-                    o.angle += o.speed;
-                    const x = cx + Math.cos(o.angle) * o.radius;
-                    const z = Math.sin(o.angle);
-                    const y = cy + o.elevation + z * 20;
-                    const alpha = 0.2 + (z+1)/2 * 0.5;
-                    ctx.beginPath();
-                    ctx.arc(x, y, o.size, 0, Math.PI*2);
-                    ctx.fillStyle = `hsla(${o.hue}, 90%, 60%, ${alpha})`;
-                    ctx.fill();
-                });
-            }
-
-            // ── Central soundwave bar visualization ──
-            function drawSoundBars(cx, cy){
-                const barCount = 30;
-                const barWidth = 3;
-                const maxH = 60;
-                const totalW = barCount * (barWidth + 2);
-                const startX = cx - totalW/2;
-                const baseY = cy;
-                for(let i=0;i<barCount;i++){
-                    const band = Math.floor((i/barCount)*BANDS);
-                    const energy = audioData[band] || 0;
-                    const h = 6 + energy * maxH;
-                    const x = startX + i*(barWidth+2);
-                    const hue = 200 - energy * 60;
-                    // Bar up
-                    ctx.fillStyle = `hsla(${hue}, 90%, 55%, ${0.35 + energy*0.6})`;
-                    ctx.fillRect(x, baseY - h, barWidth, h);
-                    // Bar down (mirror)
-                    ctx.fillStyle = `hsla(${hue}, 90%, 55%, ${0.15 + energy*0.3})`;
-                    ctx.fillRect(x, baseY, barWidth, h * 0.5);
-                }
-            }
-
-            // ── Main loop ──
-            function animate(){
-                ctx.clearRect(0,0,W,H);
-                time++;
-                tickAudio();
-
-                // Spawn labels occasionally
-                if(Math.random() < 0.025) spawnLabel();
-
-                // Center of the helix slightly to the left
-                const cx = W * 0.32;
-                const cy = H * 0.5;
-
-                // Background: faint radial glow
-                const bg = ctx.createRadialGradient(cx, cy, 0, cx, cy, 400);
-                bg.addColorStop(0, 'rgba(0,120,212,0.04)');
-                bg.addColorStop(0.5, 'rgba(0,164,239,0.02)');
-                bg.addColorStop(1, 'rgba(0,0,0,0)');
-                ctx.fillStyle = bg;
-                ctx.fillRect(0,0,W,H);
-
-                drawLabels();
-                drawOrbits(cx, cy);
-                drawHelix(cx, cy);
-                drawSoundBars(cx, cy);
-
-                raf = requestAnimationFrame(animate);
-            }
-
-            window.addEventListener('resize', resize);
-            resize();
-            animate();
-
-            // Pause when not visible
-            const heroObs = new IntersectionObserver(entries => {
-                if(entries[0].isIntersecting){ if(!raf) animate(); }
-                else { if(raf){ cancelAnimationFrame(raf); raf=null; } }
-            },{threshold:0});
-            heroObs.observe(document.getElementById('hero'));
-        })();
-    </script>
-
-    <!-- FLOATING WHATSAPP BUTTON -->
-    <a href="https://wa.me/50663823708?text=Hola%2C%20quiero%20analizar%20un%20audio" target="_blank" class="floating-wa" id="floating-wa-btn">
-        <span class="wa-icon">💬</span> Analizar Audio
-    </a>
 </body>
 </html>

@@ -36,7 +36,7 @@ function CaseCard({ title, desc, icon, usages }: CaseCardProps) {
     const glowX = e.clientX - rect.left;
     const glowY = e.clientY - rect.top;
     setGlowStyle({
-      background: `radial-gradient(circle 220px at ${glowX}px ${glowY}px, rgba(6,182,212,0.14), transparent 85%)`,
+      background: `radial-gradient(circle 220px at ${glowX}px ${glowY}px, rgba(99,102,241,0.07), transparent 85%)`,
     });
   };
 
@@ -55,27 +55,27 @@ function CaseCard({ title, desc, icon, usages }: CaseCardProps) {
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transition: "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)",
       }}
-      className="relative flex flex-col p-7 rounded-2xl border border-slate-800/80 bg-slate-950/60 hover:bg-slate-900/80 hover:border-cyan-500/50 shadow-[0_10px_35px_rgba(0,0,0,0.5)] overflow-hidden group cursor-pointer backdrop-blur-xl transition-all duration-300"
+      className="relative flex flex-col p-7 rounded-2xl border border-slate-200/90 bg-white/80 hover:bg-white hover:border-indigo-300 shadow-[0_8px_30px_rgb(0,0,0,0.03)] hover:shadow-[0_16px_40px_rgba(79,70,229,0.07)] overflow-hidden group cursor-pointer backdrop-blur-xl transition-all duration-300"
     >
       <div className="absolute inset-0 pointer-events-none transition-opacity duration-300 opacity-0 group-hover:opacity-100" style={glowStyle} />
 
       <div className="flex items-center gap-4 mb-5">
-        <div className="w-11 h-11 rounded-lg bg-cyan-950/50 border border-cyan-800/50 flex items-center justify-center text-cyan-400 group-hover:text-cyan-300 group-hover:border-cyan-500/60 transition-all duration-300 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
+        <div className="w-11 h-11 rounded-lg bg-indigo-50/80 border border-indigo-100 flex items-center justify-center text-indigo-600 group-hover:text-indigo-700 transition-all duration-300 shadow-xs">
           {icon}
         </div>
-        <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
+        <h3 className="text-base font-bold text-slate-900 group-hover:text-indigo-600 transition-colors duration-300">
           {title}
         </h3>
       </div>
 
-      <p className="text-xs text-slate-400 leading-relaxed font-normal mb-6">
+      <p className="text-xs text-slate-600 leading-relaxed font-normal mb-6">
         {desc}
       </p>
 
-      <ul className="flex flex-col gap-2 mt-auto border-t border-slate-800/80 pt-4 w-full">
+      <ul className="flex flex-col gap-2 mt-auto border-t border-slate-100 pt-4 w-full">
         {usages.map((usage, idx) => (
-          <li key={idx} className="text-[11px] font-medium text-slate-400 flex items-center gap-2 group-hover:text-slate-200 transition-colors">
-            <span className="text-cyan-400 font-bold font-mono">→</span>
+          <li key={idx} className="text-[11px] font-medium text-slate-600 flex items-center gap-2 group-hover:text-slate-800 transition-colors">
+            <span className="text-indigo-600 font-bold font-mono">→</span>
             <span>{usage}</span>
           </li>
         ))}
@@ -132,20 +132,20 @@ export default function Cases() {
   ];
 
   return (
-    <section id="aplicaciones" ref={containerRef} className="py-24 relative overflow-hidden bg-[#050813] border-b border-slate-800/80">
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
+    <section id="aplicaciones" ref={containerRef} className="py-24 relative overflow-hidden bg-[#F8FAFC] border-b border-slate-200/80">
+      <div className="absolute bottom-0 right-0 w-[350px] h-[350px] bg-indigo-100/50 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-[10px] font-bold tracking-widest text-cyan-400 uppercase border-b border-cyan-500/40 pb-1 mb-4 inline-block font-mono">
+          <span className="text-[10px] font-bold tracking-widest text-indigo-600 uppercase border-b border-indigo-200 pb-1 mb-4 inline-block font-mono">
             Casos de Uso
           </span>
-          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-5">
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-5">
             Aplicaciones del análisis forense de voz
           </h2>
-          <p className="text-sm md:text-base text-slate-400 leading-relaxed font-normal">
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed font-normal">
             Nuestra tecnología se despliega en ámbitos donde la precisión y el rigor técnico son determinantes para la toma de decisiones críticas.
           </p>
         </div>

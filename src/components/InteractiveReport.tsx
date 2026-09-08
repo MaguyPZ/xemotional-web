@@ -64,10 +64,9 @@ export default function InteractiveReport() {
   };
 
   return (
-    <section id="reporte" className="py-24 relative bg-[#050813] border-b border-slate-800/80 overflow-hidden">
-      {/* Ambient Radial Glow */}
-      <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-cyan-500/10 rounded-full blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-[400px] h-[400px] bg-emerald-500/10 rounded-full blur-[130px] pointer-events-none" />
+    <section id="reporte" className="py-24 relative bg-white border-y border-slate-200/90 overflow-hidden">
+      {/* Soft Ambient Light Background */}
+      <div className="absolute top-1/4 right-0 w-[450px] h-[450px] bg-indigo-50/70 rounded-full blur-[130px] pointer-events-none" />
 
       <div ref={containerRef} className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
         {/* Left Side: Content & Bullets */}
@@ -77,13 +76,13 @@ export default function InteractiveReport() {
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <span className="text-[10px] font-bold tracking-widest text-cyan-400 uppercase border-b border-cyan-500/40 pb-1 mb-4 inline-block font-mono">
+          <span className="text-[10px] font-bold tracking-widest text-indigo-600 uppercase border-b border-indigo-200 pb-1 mb-4 inline-block font-mono">
             Evidencia Pericial
           </span>
-          <h2 className="text-3xl md:text-4xl font-black text-white tracking-tight mb-5 leading-tight">
+          <h2 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-5 leading-tight">
             Un reporte forense de estándares científicos
           </h2>
-          <p className="text-slate-400 leading-relaxed text-sm md:text-base font-normal mb-6">
+          <p className="text-slate-600 leading-relaxed text-sm md:text-base font-normal mb-6">
             Cada análisis genera un informe técnico PDF estructurado con la metodología aplicada, los parámetros medidos y un veredicto fundamentado en evidencia bioacústica objetiva y replicable.
           </p>
 
@@ -91,12 +90,12 @@ export default function InteractiveReport() {
             {bulletPoints.map((bullet, idx) => (
               <motion.li
                 key={idx}
-                className="flex items-start gap-3 text-xs font-medium text-slate-300"
+                className="flex items-start gap-3 text-xs font-medium text-slate-700"
                 initial={{ opacity: 0, x: -10 }}
                 animate={isInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ delay: 0.2 + idx * 0.08, duration: 0.4 }}
               >
-                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-cyan-950/60 border border-cyan-800/60 flex items-center justify-center text-cyan-400 mt-0.5 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
+                <div className="flex-shrink-0 w-5 h-5 rounded-full bg-indigo-50 border border-indigo-100 flex items-center justify-center text-indigo-600 mt-0.5 shadow-xs">
                   <ShieldCheck className="w-3 h-3" />
                 </div>
                 <span className="leading-normal">{bullet}</span>
@@ -108,7 +107,7 @@ export default function InteractiveReport() {
             href="https://wa.me/50663823708?text=Hola%2C%20quiero%20solicitar%20un%20análisis%20forense"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-glow px-6 py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 hover:from-emerald-500 text-white flex items-center gap-2 shadow-[0_0_25px_rgba(16,185,129,0.35)] transition-all duration-300 group"
+            className="btn-glow px-6 py-3.5 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-2 shadow-[0_4px_16px_rgba(16,185,129,0.25)] transition-all duration-300 group"
           >
             <MessageCircle className="w-4 h-4 fill-current" />
             <span>Solicitar Análisis Ahora</span>
@@ -131,45 +130,45 @@ export default function InteractiveReport() {
               transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
               transition: "transform 0.15s ease-out",
             }}
-            className="w-full max-w-md rounded-2xl border border-cyan-500/30 bg-[#090E1F]/90 shadow-[0_0_50px_rgba(6,182,212,0.15)] overflow-hidden relative backdrop-blur-xl"
+            className="w-full max-w-md rounded-2xl border border-slate-200/90 bg-white/95 shadow-[0_15px_40px_-5px_rgba(0,0,0,0.07)] overflow-hidden relative backdrop-blur-xl"
           >
             {/* Header */}
-            <div className="bg-[#03060F] px-6 py-4 border-b border-slate-800/80 flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold tracking-widest text-cyan-400">
+            <div className="bg-slate-50/90 px-6 py-4 border-b border-slate-200/80 flex items-center justify-between">
+              <span className="text-[10px] font-mono font-bold tracking-widest text-slate-700">
                 XEMOTIONAL · REPORTE FORENSE
               </span>
-              <span className="text-[9px] font-mono text-slate-400 font-semibold">
+              <span className="text-[9px] font-mono text-slate-500 font-semibold">
                 REF: XEM-2026-04782
               </span>
             </div>
 
             {/* Classification */}
-            <div className="bg-slate-900/60 border-b border-slate-800/80 px-6 py-2.5 flex items-center gap-2">
-              <span className="text-[9px] font-mono font-extrabold text-emerald-400 border border-emerald-500/30 bg-emerald-950/40 px-2 py-0.5 rounded uppercase">
+            <div className="bg-slate-50/50 border-b border-slate-200/80 px-6 py-2.5 flex items-center gap-2">
+              <span className="text-[9px] font-mono font-extrabold text-indigo-700 border border-indigo-200 bg-indigo-50 px-2 py-0.5 rounded uppercase">
                 CONFIDENCIAL
               </span>
-              <span className="text-[9px] font-mono text-slate-400">
+              <span className="text-[9px] font-mono text-slate-500">
                 Análisis Bioacústico · Motor Forense IA V9
               </span>
             </div>
 
             {/* Fields */}
-            <div className="px-6 py-4 flex flex-col gap-2.5 text-xs border-b border-slate-800/80 font-mono">
-              <div className="flex justify-between border-b border-slate-800/40 pb-2">
-                <span className="text-slate-400">Fecha de Emisión:</span>
-                <span className="text-slate-200 font-bold">04/07/2026 · 22:46 UTC</span>
+            <div className="px-6 py-4 flex flex-col gap-2.5 text-xs border-b border-slate-200/80">
+              <div className="flex justify-between border-b border-slate-100 pb-2">
+                <span className="text-slate-500 font-semibold">Fecha de Emisión</span>
+                <span className="text-slate-800 font-bold">04/07/2026 · 22:46 UTC</span>
               </div>
-              <div className="flex justify-between border-b border-slate-800/40 pb-2">
-                <span className="text-slate-400">Duración del Audio:</span>
-                <span className="text-slate-200 font-bold">0:47 seg · formato OGG</span>
+              <div className="flex justify-between border-b border-slate-100 pb-2">
+                <span className="text-slate-500 font-semibold">Duración del Audio</span>
+                <span className="text-slate-800 font-bold">0:47 seg · formato OGG</span>
               </div>
-              <div className="flex justify-between border-b border-slate-800/40 pb-2">
-                <span className="text-slate-400">Hablantes Detectados:</span>
-                <span className="text-slate-200 font-bold">1 hablante identificado</span>
+              <div className="flex justify-between border-b border-slate-100 pb-2">
+                <span className="text-slate-500 font-semibold">Hablantes Detectados</span>
+                <span className="text-slate-800 font-bold">1 hablante identificado</span>
               </div>
               <div className="flex justify-between pb-1">
-                <span className="text-slate-400">Calidad de Señal:</span>
-                <span className="text-cyan-400 font-bold">Alta — SNR: 28.4 dB</span>
+                <span className="text-slate-500 font-semibold">Calidad de Señal</span>
+                <span className="text-slate-800 font-bold text-indigo-600">Alta — SNR: 28.4 dB</span>
               </div>
             </div>
 
@@ -180,18 +179,18 @@ export default function InteractiveReport() {
                 onMouseEnter={() => setActiveMetric("credibility")}
                 className={`p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeMetric === "credibility"
-                    ? "border-emerald-400/60 bg-emerald-950/40 shadow-[0_0_20px_rgba(16,185,129,0.25)]"
-                    : "border-slate-800 bg-slate-950/60 hover:border-slate-700"
+                    ? "border-emerald-300 bg-emerald-50/80 shadow-[0_0_15px_rgba(16,185,129,0.1)]"
+                    : "border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-400 uppercase mb-2 font-mono">
+                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-500 uppercase mb-2 font-mono">
                   <span>Credibilidad</span>
-                  <Info className="w-3.5 h-3.5 text-emerald-400" />
+                  <Info className="w-3.5 h-3.5 text-emerald-600" />
                 </div>
-                <span className="text-2xl font-black font-mono text-emerald-400">87%</span>
-                <div className="w-full h-1 bg-slate-800 rounded-full mt-3 overflow-hidden">
+                <span className="text-2xl font-black font-mono text-emerald-600">87%</span>
+                <div className="w-full h-1 bg-slate-100 rounded-full mt-3 overflow-hidden">
                   <motion.div
-                    className="h-full bg-emerald-400 rounded-full"
+                    className="h-full bg-emerald-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={isInView ? { width: "87%" } : {}}
                     transition={{ duration: 1, delay: 0.5 }}
@@ -204,18 +203,18 @@ export default function InteractiveReport() {
                 onMouseEnter={() => setActiveMetric("stress")}
                 className={`p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeMetric === "stress"
-                    ? "border-cyan-400/60 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.25)]"
-                    : "border-slate-800 bg-slate-950/60 hover:border-slate-700"
+                    ? "border-indigo-300 bg-indigo-50/80 shadow-[0_0_15px_rgba(99,102,241,0.1)]"
+                    : "border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-400 uppercase mb-2 font-mono">
+                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-500 uppercase mb-2 font-mono">
                   <span>Estrés Vocal</span>
-                  <Info className="w-3.5 h-3.5 text-cyan-400" />
+                  <Info className="w-3.5 h-3.5 text-indigo-600" />
                 </div>
-                <span className="text-2xl font-black font-mono text-cyan-400">Bajo</span>
-                <div className="w-full h-1 bg-slate-800 rounded-full mt-3 overflow-hidden">
+                <span className="text-2xl font-black font-mono text-indigo-600">Bajo</span>
+                <div className="w-full h-1 bg-slate-100 rounded-full mt-3 overflow-hidden">
                   <motion.div
-                    className="h-full bg-cyan-400 rounded-full"
+                    className="h-full bg-indigo-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={isInView ? { width: "22%" } : {}}
                     transition={{ duration: 1, delay: 0.6 }}
@@ -228,18 +227,18 @@ export default function InteractiveReport() {
                 onMouseEnter={() => setActiveMetric("jitter")}
                 className={`p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeMetric === "jitter"
-                    ? "border-cyan-400/60 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.25)]"
-                    : "border-slate-800 bg-slate-950/60 hover:border-slate-700"
+                    ? "border-indigo-300 bg-indigo-50/80 shadow-[0_0_15px_rgba(99,102,241,0.1)]"
+                    : "border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-400 uppercase mb-2 font-mono">
+                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-500 uppercase mb-2 font-mono">
                   <span>Jitter F0</span>
-                  <Info className="w-3.5 h-3.5 text-cyan-400" />
+                  <Info className="w-3.5 h-3.5 text-indigo-600" />
                 </div>
-                <span className="text-2xl font-black font-mono text-slate-200">0.8%</span>
-                <div className="w-full h-1 bg-slate-800 rounded-full mt-3 overflow-hidden">
+                <span className="text-2xl font-black font-mono text-slate-800">0.8%</span>
+                <div className="w-full h-1 bg-slate-100 rounded-full mt-3 overflow-hidden">
                   <motion.div
-                    className="h-full bg-cyan-400 rounded-full"
+                    className="h-full bg-indigo-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={isInView ? { width: "8%" } : {}}
                     transition={{ duration: 1, delay: 0.7 }}
@@ -252,18 +251,18 @@ export default function InteractiveReport() {
                 onMouseEnter={() => setActiveMetric("hnr")}
                 className={`p-3.5 rounded-xl border transition-all duration-300 cursor-pointer ${
                   activeMetric === "hnr"
-                    ? "border-cyan-400/60 bg-cyan-950/40 shadow-[0_0_20px_rgba(6,182,212,0.25)]"
-                    : "border-slate-800 bg-slate-950/60 hover:border-slate-700"
+                    ? "border-indigo-300 bg-indigo-50/80 shadow-[0_0_15px_rgba(99,102,241,0.1)]"
+                    : "border-slate-200/90 bg-white hover:border-slate-300 hover:shadow-xs"
                 }`}
               >
-                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-400 uppercase mb-2 font-mono">
+                <div className="flex items-center justify-between text-[10px] font-extrabold text-slate-500 uppercase mb-2 font-mono">
                   <span>HNR Ratio</span>
-                  <Info className="w-3.5 h-3.5 text-cyan-400" />
+                  <Info className="w-3.5 h-3.5 text-indigo-600" />
                 </div>
-                <span className="text-2xl font-black font-mono text-slate-200">22.3 dB</span>
-                <div className="w-full h-1 bg-slate-800 rounded-full mt-3 overflow-hidden">
+                <span className="text-2xl font-black font-mono text-slate-800">22.3 dB</span>
+                <div className="w-full h-1 bg-slate-100 rounded-full mt-3 overflow-hidden">
                   <motion.div
-                    className="h-full bg-cyan-400 rounded-full"
+                    className="h-full bg-indigo-500 rounded-full"
                     initial={{ width: 0 }}
                     animate={isInView ? { width: "75%" } : {}}
                     transition={{ duration: 1, delay: 0.8 }}
@@ -273,11 +272,11 @@ export default function InteractiveReport() {
             </div>
 
             {/* Verdict */}
-            <div className="bg-[#03060F] border-t border-slate-800/80 px-6 py-4.5 flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+            <div className="bg-slate-50 px-6 py-4.5 border-t border-slate-200/80 flex items-center justify-between">
+              <span className="text-[10px] font-bold text-slate-600 uppercase tracking-wider font-mono">
                 Veredicto Forense Final
               </span>
-              <span className="text-base font-black font-mono text-emerald-400 tracking-widest shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+              <span className="text-base font-black font-mono text-emerald-600 tracking-wider">
                 HONESTO
               </span>
             </div>
@@ -290,23 +289,23 @@ export default function InteractiveReport() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
-              className="p-4 rounded-xl border border-slate-800/80 bg-[#090E1F]/80 shadow-md text-xs text-slate-300 backdrop-blur-md"
+              className="p-4 rounded-xl border border-slate-200/90 bg-white/90 shadow-sm text-xs font-semibold text-slate-600"
             >
               {activeMetric ? (
                 <div>
-                  <h4 className="font-mono font-bold text-cyan-400 mb-1.5">
+                  <h4 className="font-bold text-indigo-600 mb-1.5">
                     {metricDetails[activeMetric].name}
                   </h4>
-                  <p className="mb-1 text-slate-200 leading-relaxed font-normal">
+                  <p className="mb-1 text-slate-700 leading-relaxed font-normal">
                     {metricDetails[activeMetric].desc}
                   </p>
-                  <p className="text-[11px] text-slate-400 leading-relaxed font-normal">
+                  <p className="text-[11px] text-slate-500 font-normal leading-relaxed">
                     {metricDetails[activeMetric].detail}
                   </p>
                 </div>
               ) : (
-                <div className="text-center py-2 text-slate-500 font-mono text-[11px]">
-                  Coloque el cursor sobre las métricas del reporte pericial para inspeccionar su valor científico.
+                <div className="text-center py-2 text-slate-500 font-normal text-xs">
+                  Coloca el cursor sobre las tarjetas de métricas del reporte pericial para inspeccionar su significado científico.
                 </div>
               )}
             </motion.div>

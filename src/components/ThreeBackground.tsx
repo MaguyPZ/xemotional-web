@@ -35,11 +35,11 @@ function SoundwaveOcean() {
         const pZ = (z - gridSize / 2) * 0.15;
         
         // Complex bio-acoustic wave pattern
-        // Simulates voice frequencies and autonomous stress oscillations
+        // Represents voice frequencies and emotional states
         const y = 
-          Math.sin(pX * 0.5 + time * 0.8) * 0.45 + 
-          Math.cos(pZ * 0.4 + time * 1.1) * 0.35 + 
-          Math.sin(Math.sqrt(pX * pX + pZ * pZ) * 0.5 - time * 1.5) * 0.55;
+          Math.sin(pX * 0.5 + time * 0.8) * 0.4 + 
+          Math.cos(pZ * 0.4 + time * 1.1) * 0.3 + 
+          Math.sin(Math.sqrt(pX * pX + pZ * pZ) * 0.5 - time * 1.5) * 0.5;
         
         positionsArr[i * 3 + 1] = y; // update y
         i++;
@@ -57,11 +57,11 @@ function SoundwaveOcean() {
       <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
-          color="#22D3EE" // Electric Cyan bioluminescence
-          size={0.038}
+          color="#0284C7" // Deep clean cyan/blue for clear contrast on light canvas
+          size={0.032}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.85}
+          opacity={0.75}
         />
       </Points>
     </group>
@@ -70,14 +70,14 @@ function SoundwaveOcean() {
 
 function FloatingDust() {
   const ref = useRef<any>(null);
-  const count = 600;
+  const count = 500;
   
   const positions = useMemo(() => {
     const arr = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      arr[i * 3] = (Math.random() - 0.5) * 16;
-      arr[i * 3 + 1] = (Math.random() - 0.5) * 12;
-      arr[i * 3 + 2] = (Math.random() - 0.5) * 12 - 5;
+      arr[i * 3] = (Math.random() - 0.5) * 15;
+      arr[i * 3 + 1] = (Math.random() - 0.5) * 10;
+      arr[i * 3 + 2] = (Math.random() - 0.5) * 10 - 5;
     }
     return arr;
   }, [count]);
@@ -93,11 +93,11 @@ function FloatingDust() {
     <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#10B981" // Forensic Emerald dust
-        size={0.024}
+        color="#4F46E5" // Subtle indigo
+        size={0.022}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.65}
+        opacity={0.45}
       />
     </Points>
   );
@@ -112,27 +112,26 @@ export default function ThreeBackground() {
 
   if (!mounted) {
     return (
-      <div className="absolute inset-0 -z-10 w-full h-full bg-[#050813] overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(6,182,212,0.12)_0%,transparent_75%)] pointer-events-none" />
+      <div className="absolute inset-0 -z-10 w-full h-full bg-[#F8FAFC] overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.08)_0%,transparent_75%)] pointer-events-none" />
       </div>
     );
   }
 
   return (
-    <div className="absolute inset-0 -z-10 w-full h-full bg-[#050813] overflow-hidden">
-      {/* Background static gradients as mesh layers */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(6,182,212,0.22)_0%,transparent_65%)] pointer-events-none" />
-      <div className="absolute inset-0 opacity-40 mix-blend-screen bg-[radial-gradient(circle_at_bottom_left,rgba(16,185,129,0.18)_0%,transparent_55%)] pointer-events-none" />
-      <div className="absolute inset-0 opacity-30 mix-blend-screen bg-[radial-gradient(circle_at_bottom_right,rgba(139,92,246,0.15)_0%,transparent_60%)] pointer-events-none" />
+    <div className="absolute inset-0 -z-10 w-full h-full bg-[#F8FAFC] overflow-hidden">
+      {/* Background static mesh gradients */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(99,102,241,0.18)_0%,transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 opacity-40 mix-blend-multiply bg-[radial-gradient(circle_at_bottom_left,rgba(6,182,212,0.15)_0%,transparent_50%)] pointer-events-none" />
       
       <Canvas camera={{ position: [0, 0, 5], fov: 60 }}>
-        <fog attach="fog" args={['#050813', 2.5, 12]} />
-        <ambientLight intensity={0.4} />
+        <fog attach="fog" args={['#F8FAFC', 2.5, 12]} />
+        <ambientLight intensity={0.6} />
         <SoundwaveOcean />
         <FloatingDust />
       </Canvas>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-[#050813]/50 via-transparent to-[#050813] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#F8FAFC]/40 via-transparent to-[#F8FAFC] pointer-events-none" />
     </div>
   );
 }

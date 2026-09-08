@@ -69,7 +69,7 @@ export default function RootLayout({
           />
         </noscript>
       </head>
-      <body className="min-h-full bg-[#050813] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 flex flex-col">
+      <body className="min-h-full bg-[#F8FAFC] text-slate-900 selection:bg-indigo-500/20 selection:text-indigo-600 flex flex-col">
         {children}
       </body>
     </html>

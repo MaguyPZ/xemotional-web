@@ -59,12 +59,12 @@
         /* ── NAVIGATION ── */
         .nav {
             position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid var(--border);
-            transition: box-shadow var(--transition);
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(226,232,240,0.85);
+            transition: all var(--transition);
         }
-        .nav.scrolled { box-shadow: var(--shadow-sm); }
+        .nav.scrolled { box-shadow: 0 4px 20px rgba(15,23,42,0.04); background: rgba(255,255,255,0.97); }
         .nav-inner {
             max-width: 1140px; margin: 0 auto;
             display: flex; align-items: center; justify-content: space-between;
@@ -119,11 +119,17 @@
             padding: 120px 24px 80px; background: var(--bg);
             position: relative; overflow: hidden;
         }
+        .hero-ambient {
+            position: absolute; top: -120px; right: -80px;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.06) 0%, rgba(14, 165, 233, 0.03) 45%, transparent 70%);
+            filter: blur(50px); pointer-events: none; z-index: 0;
+        }
         .hero-grid-bg {
             position: absolute; inset: 0; pointer-events: none;
             background-image: radial-gradient(circle, #CBD5E1 1px, transparent 1px);
             background-size: 36px 36px;
-            opacity: 0.5;
+            opacity: 0.45;
         }
         .hero-inner {
             max-width: 1140px; margin: 0 auto;
@@ -131,11 +137,18 @@
             align-items: center; width: 100%; position: relative; z-index: 1;
         }
         .hero-eyebrow {
-            display: inline-flex; align-items: center; gap: 10px;
-            font-size: 0.71rem; font-weight: 700; letter-spacing: 0.12em;
+            display: inline-flex; align-items: center; gap: 9px;
+            padding: 6px 14px; background: rgba(238, 242, 255, 0.9);
+            border: 1px solid rgba(199, 210, 254, 0.9);
+            border-radius: 9999px;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em;
             text-transform: uppercase; color: var(--steel); margin-bottom: 22px;
+            box-shadow: 0 1px 3px rgba(79, 70, 229, 0.05);
         }
-        .hero-eyebrow::before { content: ''; width: 22px; height: 1px; background: var(--steel); }
+        .hero-eyebrow-dot {
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--steel); box-shadow: 0 0 6px var(--steel);
+        }
         .hero h1 {
             font-size: clamp(2.1rem, 4.2vw, 3.3rem); font-weight: 800;
             line-height: 1.1; letter-spacing: -0.032em; color: var(--navy);
@@ -168,18 +181,28 @@
             width: 100%; max-width: 490px;
             background: var(--bg); border: 1px solid var(--border);
             border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); overflow: hidden;
+            transition: box-shadow var(--transition);
         }
+        .clinical-console:hover { box-shadow: 0 35px 70px rgba(15,23,42,0.09); }
         .console-header {
             background: var(--navy); padding: 13px 20px;
             display: flex; align-items: center; justify-content: space-between;
         }
         .console-title {
-            font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.5);
+            font-size: 0.68rem; font-weight: 600; color: rgba(255,255,255,0.6);
             letter-spacing: 0.1em; text-transform: uppercase;
         }
-        .console-status { display: flex; align-items: center; gap: 6px; font-size: 0.67rem; color: rgba(255,255,255,0.45); }
-        .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; animation: blink 2s infinite; }
-        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+        .console-status { display: flex; align-items: center; gap: 7px; font-size: 0.67rem; color: rgba(255,255,255,0.7); }
+        .status-dot {
+            width: 7px; height: 7px; border-radius: 50%; background: #22C55E;
+            display: inline-block; position: relative;
+        }
+        .status-dot::after {
+            content: ''; position: absolute; inset: -3px; border-radius: 50%;
+            border: 1.5px solid rgba(34, 197, 94, 0.6);
+            animation: radar-ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes radar-ping { 75%, 100% { transform: scale(2.2); opacity: 0; } }
         .console-canvas-wrap { background: #F8FAFC; border-bottom: 1px solid var(--border); position: relative; }
         #hero-canvas { display: block; width: 100%; height: 160px; }
         .console-metrics { display: grid; grid-template-columns: repeat(3,1fr); }
@@ -187,7 +210,9 @@
             padding: 16px 18px;
             border-right: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
+            transition: background 0.2s ease;
         }
+        .c-metric:hover { background: #F1F5F9; }
         .c-metric:last-child { border-right: none; }
         .c-metric-lbl { font-size: 0.63rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 5px; }
         .c-metric-val { font-size: 1.25rem; font-weight: 700; color: var(--navy); letter-spacing: -0.02em; }
@@ -198,7 +223,7 @@
             padding: 11px 20px; background: var(--navy);
             display: flex; align-items: center; justify-content: space-between;
         }
-        .cf-label { font-size: 0.66rem; color: rgba(255,255,255,0.35); font-family: 'Courier New', monospace; }
+        .cf-label { font-size: 0.66rem; color: rgba(255,255,255,0.45); font-family: 'Courier New', monospace; }
         .cf-status { font-size: 0.66rem; color: #22C55E; font-family: 'Courier New', monospace; }
 
         /* ── TRUST BAR ── */
@@ -240,9 +265,13 @@
         .step-card {
             padding: 36px 28px; background: var(--bg);
             border: 1px solid var(--border); border-radius: var(--radius-lg);
-            transition: all var(--transition); position: relative;
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1); position: relative;
         }
-        .step-card:hover { border-color: var(--navy); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .step-card:hover {
+            border-color: #CBD5E1;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.02);
+            transform: translateY(-4px);
+        }
         .step-phase {
             font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em;
             text-transform: uppercase; color: var(--muted); margin-bottom: 18px;
@@ -315,18 +344,33 @@
         .rm-metric-card {
             background: var(--bg-section); border: 1px solid var(--border);
             border-radius: var(--radius); padding: 12px 14px;
+            transition: all 0.22s ease; cursor: pointer;
+        }
+        .rm-metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--steel-soft);
+            box-shadow: 0 6px 16px rgba(79, 70, 229, 0.08);
+            background: #fff;
         }
         .rmc-lbl { font-size: 0.62rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
         .rmc-val { font-size: 1.08rem; font-weight: 700; color: var(--navy); }
-        .rmc-bar { height: 3px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
-        .rmc-fill { height: 100%; border-radius: 2px; }
+        .rmc-bar { height: 4px; background: var(--border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+        .rmc-fill { height: 100%; border-radius: 2px; transition: width 0.8s ease; }
         .rm-verdict {
             background: var(--navy); border-radius: var(--radius);
             padding: 14px 18px; margin-top: 14px;
             display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 14px rgba(15,23,42,0.12);
         }
         .rv-label { font-size: 0.68rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; }
-        .rv-value { font-size: 1.02rem; font-weight: 700; color: #22C55E; }
+        .rv-value {
+            font-size: 1.02rem; font-weight: 700; color: #22C55E;
+            letter-spacing: 0.05em; display: flex; align-items: center; gap: 6px;
+        }
+        .rv-value::before {
+            content: ''; width: 7px; height: 7px; border-radius: 50%; background: #22C55E;
+            box-shadow: 0 0 8px #22C55E;
+        }
 
         /* ── SCIENCE ── */
         .science-grid {
@@ -336,9 +380,13 @@
         .sci-card {
             background: var(--bg); border: 1px solid var(--border);
             border-radius: var(--radius-lg); padding: 32px;
-            transition: all var(--transition);
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .sci-card:hover { border-color: var(--navy); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+        .sci-card:hover {
+            border-color: #CBD5E1;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.02);
+            transform: translateY(-4px);
+        }
         .sci-mod {
             font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em;
             text-transform: uppercase; color: var(--steel); margin-bottom: 14px;
@@ -348,7 +396,7 @@
         .sci-card p  { font-size: 0.86rem; color: var(--slate); line-height: 1.78; }
         .sci-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
         .sci-tag {
-            padding: 3px 10px; background: var(--steel-light); border-radius: 2px;
+            padding: 3px 10px; background: var(--steel-light); border-radius: 4px;
             font-size: 0.68rem; color: var(--steel); font-weight: 600;
             font-family: 'Courier New', monospace;
         }
@@ -361,9 +409,14 @@
         .case-card {
             background: var(--bg); border: 1px solid var(--border);
             border-radius: var(--radius-lg); padding: 30px;
-            display: flex; gap: 20px; transition: all var(--transition);
+            display: flex; gap: 20px;
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .case-card:hover { border-color: var(--navy); box-shadow: var(--shadow-md); }
+        .case-card:hover {
+            border-color: #CBD5E1;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.02);
+            transform: translateY(-4px);
+        }
         .case-icon {
             width: 46px; height: 46px; flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
@@ -384,9 +437,14 @@
         }
         .sec-card {
             padding: 28px; background: var(--bg); border: 1px solid var(--border);
-            border-radius: var(--radius-lg); transition: all var(--transition);
+            border-radius: var(--radius-lg);
+            transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .sec-card:hover { border-color: var(--navy); }
+        .sec-card:hover {
+            border-color: #CBD5E1;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.06), 0 2px 8px rgba(15, 23, 42, 0.02);
+            transform: translateY(-4px);
+        }
         .sec-icon {
             width: 40px; height: 40px; margin-bottom: 16px;
             display: flex; align-items: center; justify-content: center;
@@ -400,6 +458,7 @@
             max-width: 1140px; margin: 36px auto 0;
             background: var(--bg-section); border: 1px solid var(--border); border-radius: var(--radius-lg);
             padding: 28px 36px; display: flex; align-items: center; gap: 20px;
+            box-shadow: 0 4px 18px rgba(15,23,42,0.03);
         }
         .pledge-icon { font-size: 2rem; flex-shrink: 0; }
         .pledge-bar h3 { font-size: 1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 5px; }
@@ -416,9 +475,9 @@
             gap: 16px; transition: color var(--transition);
         }
         .faq-q:hover { color: var(--steel); }
-        .faq-chevron { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); transition: transform var(--transition); }
+        .faq-chevron { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .faq-item.open .faq-chevron { transform: rotate(180deg); color: var(--steel); }
-        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
         .faq-item.open .faq-a { max-height: 400px; }
         .faq-a p { font-size: 0.87rem; color: var(--slate); line-height: 1.82; padding-bottom: 20px; }
         .faq-a code { font-family:'Courier New',monospace; font-size:0.84em; background:var(--bg-section); padding:1px 5px; border-radius:3px; }
@@ -426,7 +485,8 @@
         /* ── CTA ── */
         .cta-box {
             max-width: 820px; margin: 0 auto; text-align: center;
-            background: linear-gradient(135deg, var(--bg-section), rgba(99, 102, 241, 0.04)); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 60px 52px;
+            background: linear-gradient(135deg, #FFFFFF, #F8FAFC); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 60px 52px;
+            box-shadow: 0 20px 50px rgba(15,23,42,0.05);
         }
         .cta-tag { display: inline-block; font-size: 0.69rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--steel); margin-bottom: 22px; }
         .cta-box h2 { font-size: clamp(1.75rem, 3vw, 2.4rem); font-weight: 800; color: var(--text-primary); letter-spacing: -0.025em; margin-bottom: 18px; line-height: 1.15; }
@@ -459,13 +519,17 @@
         /* ── FLOATING WA ── */
         .floating-wa {
             position: fixed; bottom: 24px; right: 24px; z-index: 9999;
-            display: inline-flex; align-items: center; gap: 8px;
-            padding: 12px 20px; background: var(--wa-green); color: #fff;
-            border-radius: 50px; font-size: 0.86rem; font-weight: 600;
-            box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+            display: inline-flex; align-items: center; gap: 9px;
+            padding: 13px 22px; background: var(--wa-green); color: #fff;
+            border-radius: 50px; font-size: 0.88rem; font-weight: 600;
+            box-shadow: 0 6px 24px rgba(37,211,102,0.4);
             transition: all var(--transition);
         }
-        .floating-wa:hover { background: var(--wa-dark); transform: translateY(-2px); box-shadow: 0 6px 28px rgba(37,211,102,0.5); }
+        .floating-wa:hover {
+            background: var(--wa-dark);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(37,211,102,0.5);
+        }
 
         /* ── SCROLL ANIMATIONS ── */
         .anim { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease-out, transform 0.55s ease-out; }
@@ -553,10 +617,11 @@
 
 <!-- ══════════════════════ HERO ══════════════════════ -->
 <section class="hero" id="hero">
+    <div class="hero-ambient"></div>
     <div class="hero-grid-bg"></div>
     <div class="hero-inner">
         <div class="hero-content">
-            <div class="hero-eyebrow">Análisis Forense · Modelo MV9-F · IA Bioacústica</div>
+            <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Análisis Forense · Modelo MV9-F · IA Bioacústica</div>
             <h1>Análisis Forense<br>de Voz<span class="dot">.</span><br>Precisión Inapelable<span class="dot">.</span></h1>
             <p class="hero-desc">
                 Evaluamos los parámetros bioacústicos de la voz humana mediante inteligencia artificial forense de última generación. Obtenga un reporte técnico detallado de credibilidad, estrés cognitivo y estado emocional, de forma completamente confidencial y sin registros de datos.
@@ -1123,14 +1188,20 @@
 
         function resize() {
             const wrap = canvas.parentElement;
-            W = canvas.width  = wrap.clientWidth;
-            H = canvas.height = 160;
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            W = wrap.clientWidth;
+            H = 160;
+            canvas.width  = W * dpr;
+            canvas.height = H * dpr;
+            canvas.style.width  = W + 'px';
+            canvas.style.height = H + 'px';
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
         }
 
         function drawGrid() {
             const cols = 10, rows = 5;
             ctx.beginPath();
-            ctx.strokeStyle = 'rgba(176,195,218,0.4)';
+            ctx.strokeStyle = 'rgba(176,195,218,0.35)';
             ctx.lineWidth = 0.5;
             for (let i = 0; i <= cols; i++) {
                 const x = (i / cols) * W;
@@ -1143,7 +1214,7 @@
             ctx.stroke();
             // Baseline
             ctx.beginPath();
-            ctx.strokeStyle = 'rgba(79,70,229,0.12)';
+            ctx.strokeStyle = 'rgba(79,70,229,0.15)';
             ctx.lineWidth = 1;
             ctx.moveTo(0, H / 2); ctx.lineTo(W, H / 2);
             ctx.stroke();
@@ -1151,16 +1222,16 @@
 
         function drawWave() {
             const cy = H / 2;
-            const amp = 44;
+            const amp = 42;
 
-            // Secondary trace
+            // Secondary ambient harmonics
             ctx.beginPath();
-            ctx.strokeStyle = 'rgba(99,102,241,0.22)';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(99,102,241,0.2)';
+            ctx.lineWidth = 1.2;
             for (let x = 0; x <= W; x += 2) {
                 const t = (x / W) * Math.PI * 7;
-                const y = cy + Math.sin(t * 1.3 + time * 0.022) * (amp * 0.35)
-                             + Math.sin(t * 3.1 + time * 0.015) * (amp * 0.15);
+                const y = cy + Math.sin(t * 1.2 + time * 0.024) * (amp * 0.38)
+                             + Math.sin(t * 2.8 + time * 0.016) * (amp * 0.16);
                 x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
             }
             ctx.stroke();
@@ -1168,42 +1239,47 @@
             // Primary voice waveform
             ctx.beginPath();
             ctx.strokeStyle = '#4F46E5';
-            ctx.lineWidth = 1.6;
+            ctx.lineWidth = 1.8;
             for (let x = 0; x <= W; x++) {
                 const t = (x / W) * Math.PI * 6;
                 const ni = Math.floor(x + time * 0.8) & 2047;
                 const voice = Math.sin(t + time * 0.022) * amp
-                            + Math.sin(t * 2.3 + time * 0.016) * (amp * 0.28)
-                            + Math.sin(t * 4.7 + time * 0.01) * (amp * 0.12)
+                            + Math.sin(t * 2.3 + time * 0.015) * (amp * 0.26)
+                            + Math.sin(t * 4.6 + time * 0.009) * (amp * 0.11)
                             + NOISE[ni];
                 const y = cy + voice;
                 x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
             }
             ctx.stroke();
 
-            // Scan cursor
-            const scanX = (time * 1.2) % W;
+            // Scan cursor with soft glow
+            const scanX = (time * 1.3) % W;
             ctx.save();
             ctx.beginPath();
-            ctx.strokeStyle = 'rgba(79,70,229,0.45)';
+            ctx.strokeStyle = 'rgba(79,70,229,0.5)';
             ctx.lineWidth = 1;
-            ctx.setLineDash([4, 5]);
+            ctx.setLineDash([4, 4]);
             ctx.moveTo(scanX, 4); ctx.lineTo(scanX, H - 4);
             ctx.stroke();
             ctx.setLineDash([]);
+            // Scan head dot
+            ctx.beginPath();
+            ctx.fillStyle = '#4F46E5';
+            ctx.arc(scanX, cy, 3, 0, Math.PI * 2);
+            ctx.fill();
             ctx.restore();
         }
 
         function drawAnnotations() {
             const anns = [
-                { x: 0.1,  text: 'F0: 186.4 Hz' },
-                { x: 0.42, text: 'Jitter: 0.8%' },
-                { x: 0.72, text: 'HNR: 22.3 dB' },
+                { x: 0.08, text: 'F0: 186.4 Hz · Estable' },
+                { x: 0.44, text: 'Jitter: 0.8% · Normal' },
+                { x: 0.74, text: 'HNR: 22.3 dB · Óptimo' },
             ];
-            ctx.font = '500 9.5px Inter, system-ui, monospace';
+            ctx.font = '500 9.5px Inter, system-ui, -apple-system, sans-serif';
             anns.forEach(a => {
-                ctx.fillStyle = 'rgba(71,85,105,0.6)';
-                ctx.fillText(a.text, a.x * W, 13);
+                ctx.fillStyle = 'rgba(71,85,105,0.7)';
+                ctx.fillText(a.text, a.x * W, 14);
             });
         }
 
